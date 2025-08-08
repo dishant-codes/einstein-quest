@@ -4,57 +4,63 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import { Filter, X } from "lucide-react";
+import kbeCompetition from "@assets/KBE-2K23 B.jpg";
+import kbeTraining1 from "@assets/20191124_085055.jpg";
+import kbeTraining2 from "@assets/20191124_091341.jpg";
+import kbeExam from "@assets/20200315_101145.jpg";
+import kbeCompetition2 from "@assets/KBE-2K23 F 3.jpg";
+import einsteinImage from "@assets/12bf4346e6a424137be4f573bb830413_1754678092840.jpg";
 
 const categories = [
-  { id: "all", label: "All Photos", count: 24 },
-  { id: "competition", label: "Competitions", count: 8 },
-  { id: "isro", label: "ISRO Visits", count: 6 },
-  { id: "training", label: "Training", count: 5 },
-  { id: "awards", label: "Awards", count: 5 },
+  { id: "all", label: "All Photos", count: 20 },
+  { id: "competition", label: "Competitions", count: 6 },
+  { id: "isro", label: "ISRO Visits", count: 4 },
+  { id: "training", label: "Training", count: 6 },
+  { id: "awards", label: "Awards", count: 4 },
 ];
 
 const galleryImages = [
   {
     id: 1,
-    src: "https://images.unsplash.com/photo-1434030216411-0b793f4b4173?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600",
-    title: "KBE Competition 2024",
+    src: kbeCompetition,
+    title: "KBE Competition 2023 - Banner Event",
     category: "competition",
-    description: "Students participating in the annual KBE Young Scientist Competition"
+    description: "Official KBE Young Scientist Competition event with participants showcasing their scientific knowledge"
   },
   {
     id: 2,
-    src: "https://images.unsplash.com/photo-1541185933-ef5d8ed016c2?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600",
-    title: "ISRO Space Center Visit",
-    category: "isro",
-    description: "Winners visiting ISRO facilities and learning about space technology"
+    src: kbeCompetition2,
+    title: "KBE Competition 2023 - Participants",
+    category: "competition",
+    description: "Students actively participating in the KBE Young Scientist Competition examination"
   },
   {
     id: 3,
-    src: "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600",
-    title: "Science Training Session",
+    src: kbeTraining1,
+    title: "Interactive Training Session - November 2019",
     category: "training",
-    description: "Interactive training session with expert scientists and educators"
+    description: "Expert-led training session with students actively participating in scientific learning and preparation"
   },
   {
     id: 4,
-    src: "https://images.unsplash.com/photo-1560472354-b33ff0c44a43?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600",
-    title: "Award Ceremony 2024",
-    category: "awards",
-    description: "Annual award ceremony celebrating young scientific achievements"
+    src: kbeTraining2,
+    title: "Large Scale Training Program - November 2019",
+    category: "training",
+    description: "Comprehensive training session with multiple students learning from expert instructors"
   },
   {
     id: 5,
-    src: "https://images.unsplash.com/photo-1532094349884-543bc11b234d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600",
-    title: "Laboratory Experiments",
-    category: "training",
-    description: "Hands-on laboratory experiments during training programs"
+    src: kbeExam,
+    title: "KBE Examination Hall - March 2020",
+    category: "competition",
+    description: "Students taking the KBE examination in a properly organized examination hall"
   },
   {
     id: 6,
-    src: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600",
-    title: "Grade III Competition",
-    category: "competition",
-    description: "Advanced level competition for senior students"
+    src: einsteinImage,
+    title: "Einstein - Our Inspiration",
+    category: "awards",
+    description: "Albert Einstein continues to inspire young scientists through the KBE competition platform"
   },
   {
     id: 7,

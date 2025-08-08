@@ -6,26 +6,28 @@ import ParticleBackground from "@/components/ui/particle-background";
 import ThreeDElements from "@/components/ui/three-d-elements";
 import { EINSTEIN_QUOTES } from "@/lib/constants";
 
+import einsteinImage from "@assets/12bf4346e6a424137be4f573bb830413_1754678092840.jpg";
+
 const slides = [
   {
     title: "Kaun Banega Einstein?",
     subtitle: "Young Scientist Competition",
     description: "Inspire young minds to explore the wonders of science and research through our exciting competition platform.",
-    image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=800",
+    image: einsteinImage,
     quote: EINSTEIN_QUOTES[0],
   },
   {
     title: "Discover Your Scientific Potential",
     subtitle: "Three Levels of Excellence",
     description: "From Grade I to Grade III, challenge yourself and win amazing prizes including ISRO tours and scientific equipment.",
-    image: "https://images.unsplash.com/photo-1532094349884-543bc11b234d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=800",
+    image: einsteinImage,
     quote: EINSTEIN_QUOTES[1],
   },
   {
     title: "Join the Future Scientists",
     subtitle: "Be Part of Something Greater",
     description: "Connect with like-minded young scientists and researchers. Your journey to becoming the next Einstein starts here.",
-    image: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=800",
+    image: einsteinImage,
     quote: EINSTEIN_QUOTES[2],
   },
 ];
