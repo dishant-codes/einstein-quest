@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { EINSTEIN_QUOTES } from "@/lib/constants";
+import einsteinImage from "@assets/12bf4346e6a424137be4f573bb830413_1754678092840.jpg";
 
 export default function QuoteSection() {
   const [currentQuote, setCurrentQuote] = useState(0);
@@ -23,9 +24,9 @@ export default function QuoteSection() {
       
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
         <img 
-          src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&h=200"
+          src={einsteinImage}
           alt="Einstein Portrait"
-          className="w-32 h-32 rounded-full mx-auto mb-8 border-4 border-white shadow-lg"
+          className="w-32 h-32 rounded-full mx-auto mb-8 border-4 border-white shadow-lg object-cover"
           data-testid="img-einstein-portrait"
         />
         
