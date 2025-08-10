@@ -6,12 +6,12 @@ import { Menu, X } from "lucide-react";
 import kbeLogo from "@assets/KBE logo.png";
 
 const navigation = [
-  { name: "Home", href: "/" },
-  { name: "About Us", href: "/about" },
-  { name: "Exams", href: "/exams" },
-  { name: "Training", href: "/training" },
-  { name: "Gallery", href: "/gallery" },
-  { name: "Contact", href: "/contact" },
+  { name: "Home", href: "/einstein-quest/" },
+  { name: "About Us", href: "/einstein-quest/about" },
+  { name: "Exams", href: "/einstein-quest/exams" },
+  { name: "Training", href: "/einstein-quest/training" },
+  { name: "Gallery", href: "/einstein-quest/gallery" },
+  { name: "Contact", href: "/einstein-quest/contact" },
 ];
 
 export default function Navbar() {
