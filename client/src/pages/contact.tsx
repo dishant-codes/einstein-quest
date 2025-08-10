@@ -147,21 +147,39 @@ export default function Contact() {
               </p>
               
               <div className="space-y-6">
-                {contactOptions.map((option, index) => (
-                  <div key={option.title} className="flex items-center" data-testid={`contact-info-${index}`}>
-                    <div className={`bg-${option.color} text-white w-12 h-12 rounded-full flex items-center justify-center mr-4`}>
-                      <option.icon className="h-6 w-6" data-testid={`icon-${option.title.toLowerCase()}`} />
+                {contactOptions.map((option, index) => {
+                  // Define color classes based on option color to avoid dynamic class name issues
+                  const getIconBackgroundClass = (color: string) => {
+                    switch (color) {
+                      case 'kbe-blue':
+                        return 'bg-blue-600';
+                      case 'kbe-purple':
+                        return 'bg-purple-600';
+                      case 'kbe-orange':
+                        return 'bg-orange-600';
+                      case 'kbe-emerald':
+                        return 'bg-emerald-600';
+                      default:
+                        return 'bg-blue-600';
+                    }
+                  };
+                  
+                  return (
+                    <div key={option.title} className="flex items-center" data-testid={`contact-info-${index}`}>
+                      <div className={`${getIconBackgroundClass(option.color)} text-white w-12 h-12 rounded-full flex items-center justify-center mr-4`}>
+                        <option.icon className="h-6 w-6" data-testid={`icon-${option.title.toLowerCase()}`} />
+                      </div>
+                      <div>
+                        <h4 className="font-semibold text-lg" data-testid={`text-${option.title.toLowerCase()}-title`}>
+                          {option.title}
+                        </h4>
+                        <p className="text-gray-600" data-testid={`text-${option.title.toLowerCase()}-content`}>
+                          {option.content}
+                        </p>
+                      </div>
                     </div>
-                    <div>
-                      <h4 className="font-semibold text-lg" data-testid={`text-${option.title.toLowerCase()}-title`}>
-                        {option.title}
-                      </h4>
-                      <p className="text-gray-600" data-testid={`text-${option.title.toLowerCase()}-content`}>
-                        {option.content}
-                      </p>
-                    </div>
-                  </div>
-                ))}
+                  );
+                })}
               </div>
 
               {/* Additional Contact Info */}

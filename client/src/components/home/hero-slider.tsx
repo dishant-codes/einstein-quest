@@ -97,7 +97,7 @@ export default function HeroSlider() {
               <Button 
                 size="lg" 
                 variant="outline" 
-                className="border-2 border-white text-white hover:bg-white hover:text-kbe-purple font-semibold text-lg"
+                className="border-2 bg-transparent border-white text-white hover:bg-white hover:text-kbe-purple font-semibold text-lg"
                 data-testid="button-watch-demo"
               >
                 <Play className="mr-2 h-5 w-5" />

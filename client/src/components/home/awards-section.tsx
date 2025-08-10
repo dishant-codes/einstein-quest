@@ -18,25 +18,55 @@ export default function AwardsSection() {
         </div>
         
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
-          {AWARDS.map((award, index) => (
-            <div key={award.position} className="text-center card-hover" data-testid={`card-award-${award.position}`}>
-              <div className={`bg-gradient-to-br from-${award.color}-400 to-${award.color}-600 w-24 h-24 rounded-full flex items-center justify-center mx-auto mb-6`}>
-                <Trophy className="h-12 w-12 text-white" data-testid={`icon-trophy-${award.position}`} />
+          {AWARDS.map((award, index) => {
+            // Define color classes based on position to avoid dynamic class name issues
+            const getColorClasses = (color: string) => {
+              switch (color) {
+                case 'yellow':
+                  return {
+                    gradient: 'bg-gradient-to-br from-yellow-400 to-yellow-600',
+                    badge: 'bg-yellow-500'
+                  };
+                case 'gray':
+                  return {
+                    gradient: 'bg-gradient-to-br from-gray-400 to-gray-600',
+                    badge: 'bg-gray-500'
+                  };
+                case 'orange':
+                  return {
+                    gradient: 'bg-gradient-to-br from-orange-400 to-orange-600',
+                    badge: 'bg-orange-500'
+                  };
+                default:
+                  return {
+                    gradient: 'bg-gradient-to-br from-blue-400 to-blue-600',
+                    badge: 'bg-blue-500'
+                  };
+              }
+            };
+            
+            const colorClasses = getColorClasses(award.color);
+            
+            return (
+              <div key={award.position} className="text-center card-hover" data-testid={`card-award-${award.position}`}>
+                <div className={`${colorClasses.gradient} w-24 h-24 rounded-full flex items-center justify-center mx-auto mb-6`}>
+                  <Trophy className="h-12 w-12 text-white" data-testid={`icon-trophy-${award.position}`} />
+                </div>
+                <h3 className="text-xl font-bold text-gray-900 mb-2" data-testid={`text-${award.position}-prize-title`}>
+                  {award.position} Prize
+                </h3>
+                <Badge 
+                  className={`${colorClasses.badge} text-white mb-4`}
+                  data-testid={`badge-${award.position}-prize`}
+                >
+                  {award.prize}
+                </Badge>
+                <p className="text-gray-600" data-testid={`text-${award.position}-prize-description`}>
+                  {award.scholarship} + {award.badge}
+                </p>
               </div>
-              <h3 className="text-xl font-bold text-gray-900 mb-2" data-testid={`text-${award.position}-prize-title`}>
-                {award.position} Prize
-              </h3>
-              <Badge 
-                className={`bg-${award.color}-500 text-white mb-4`}
-                data-testid={`badge-${award.position}-prize`}
-              >
-                {award.prize}
-              </Badge>
-              <p className="text-gray-600" data-testid={`text-${award.position}-prize-description`}>
-                {award.scholarship} + {award.badge}
-              </p>
-            </div>
-          ))}
+            );
+          })}
         </div>
         
         <Card className="bg-gradient-to-r from-kbe-blue to-kbe-purple text-white border-0" data-testid="card-isro-tour">

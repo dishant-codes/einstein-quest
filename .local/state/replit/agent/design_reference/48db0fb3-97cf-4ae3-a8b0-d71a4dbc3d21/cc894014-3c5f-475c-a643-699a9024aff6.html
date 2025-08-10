@@ -1,0 +1,643 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KBE - Kaun Banega Einstein | Young Scientist Competition</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'kbe-blue': '#1E40AF',
+                        'kbe-purple': '#7C3AED',
+                        'kbe-orange': '#F97316',
+                        'kbe-emerald': '#059669',
+                        'kbe-amber': '#D97706'
+                    },
+                    fontFamily: {
+                        'inter': ['Inter', 'sans-serif']
+                    },
+                    animation: {
+                        'float': 'float 6s ease-in-out infinite',
+                        'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'bounce-slow': 'bounce 2s infinite'
+                    }
+                }
+            }
+        }
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+        .particle {
+            position: absolute;
+            background: radial-gradient(circle, rgba(255,255,255,0.8) 0%, transparent 70%);
+            border-radius: 50%;
+            animation: float 6s ease-in-out infinite;
+        }
+        .hero-bg {
+            background: linear-gradient(135deg, #1E40AF 0%, #7C3AED 50%, #F97316 100%);
+        }
+        .card-hover {
+            transition: all 0.3s ease;
+        }
+        .card-hover:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+        }
+    </style>
+</head>
+<body class="font-inter bg-gray-50">
+    <!-- Navigation -->
+    <!-- @COMPONENT: Navigation [responsive navigation with mobile menu] -->
+    <nav class="bg-white shadow-lg fixed w-full top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center">
+                    <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='45' fill='%237C3AED'/%3E%3Ctext x='50' y='55' text-anchor='middle' fill='white' font-size='12' font-weight='bold'%3EKBE%3C/text%3E%3C/svg%3E" alt="KBE Logo" class="h-10 w-10">
+                    <span class="ml-2 text-xl font-bold text-kbe-purple">KBE</span>
+                    <span class="ml-1 text-sm text-gray-600">Kaun Banega Einstein</span>
+                </div>
+                
+                <div class="hidden md:flex space-x-8">
+                    <a href="#home" class="text-gray-700 hover:text-kbe-purple transition-colors">Home</a>
+                    <a href="#about" class="text-gray-700 hover:text-kbe-purple transition-colors">About Us</a>
+                    <a href="#exams" class="text-gray-700 hover:text-kbe-purple transition-colors">Exams</a>
+                    <a href="#training" class="text-gray-700 hover:text-kbe-purple transition-colors">Training</a>
+                    <a href="#gallery" class="text-gray-700 hover:text-kbe-purple transition-colors">Gallery</a>
+                    <a href="#contact" class="text-gray-700 hover:text-kbe-purple transition-colors">Contact</a>
+                </div>
+                
+                <div class="hidden md:flex">
+                    <button class="bg-kbe-orange text-white px-6 py-2 rounded-full hover:bg-orange-600 transition-colors font-medium">
+                        Register Now
+                    </button>
+                </div>
+                
+                <div class="md:hidden">
+                    <button data-event="click:toggleMobileMenu" class="text-gray-500 hover:text-gray-600">
+                        <i class="fas fa-bars text-xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <!-- @END_COMPONENT: Navigation -->
+
+    <!-- Hero Slider Section -->
+    <!-- @COMPONENT: HeroSlider [interactive image slider with Einstein quotes] -->
+    <section id="home" class="hero-bg relative overflow-hidden pt-16 min-h-screen flex items-center">
+        <!-- Particle Background -->
+        <div class="absolute inset-0 overflow-hidden">
+            <!-- @MAP: Array(20).fill().map((_, i) => ( -->
+            <div class="particle w-2 h-2 absolute" style="left: 10%; top: 20%; animation-delay: 0s;"></div>
+            <div class="particle w-1 h-1 absolute" style="left: 80%; top: 30%; animation-delay: 1s;"></div>
+            <div class="particle w-3 h-3 absolute" style="left: 60%; top: 60%; animation-delay: 2s;"></div>
+            <div class="particle w-2 h-2 absolute" style="left: 20%; top: 80%; animation-delay: 3s;"></div>
+            <div class="particle w-1 h-1 absolute" style="left: 90%; top: 10%; animation-delay: 4s;"></div>
+            <!-- @END_MAP -->
+        </div>
+        
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                <div class="text-white">
+                    <h1 class="text-5xl lg:text-6xl font-bold mb-6 leading-tight">
+                        Kaun Banega <span class="text-kbe-orange">Einstein?</span>
+                    </h1>
+                    <p class="text-xl mb-8 text-blue-100">
+                        Inspire young minds to explore the wonders of science and research through our exciting competition platform.
+                    </p>
+                    <div class="flex flex-col sm:flex-row gap-4">
+                        <button class="bg-kbe-orange text-white px-8 py-4 rounded-full font-semibold text-lg hover:bg-orange-600 transition-all transform hover:scale-105">
+                            <i class="fas fa-rocket mr-2"></i>Start Your Journey
+                        </button>
+                        <button class="border-2 border-white text-white px-8 py-4 rounded-full font-semibold text-lg hover:bg-white hover:text-kbe-purple transition-all">
+                            <i class="fas fa-play mr-2"></i>Watch Demo
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="relative">
+                    <!-- Einstein illustration placeholder -->
+                    <!-- A stylized illustration of Einstein with wild hair, showing his tongue out in a playful manner -->
+                    <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&h=800" 
+                         alt="Einstein inspired character" 
+                         class="w-full max-w-md mx-auto animate-float rounded-3xl shadow-2xl">
+                    
+                    <!-- Floating 3D Elements -->
+                    <div class="absolute -top-10 -right-10 w-20 h-20 bg-kbe-amber rounded-full opacity-80 animate-bounce-slow"></div>
+                    <div class="absolute -bottom-5 -left-5 w-16 h-16 bg-kbe-emerald rounded-full opacity-70 animate-pulse-slow"></div>
+                    <div class="absolute top-1/2 -right-8 w-12 h-12 bg-kbe-orange rounded-full opacity-60 animate-float"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- @END_COMPONENT: HeroSlider -->
+
+    <!-- About Section -->
+    <!-- @COMPONENT: AboutSection [mission, vision, and goals display] -->
+    <section id="about" class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold text-gray-900 mb-4">About KBE</h2>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                    Empowering young minds to become the next generation of scientists and researchers through innovative competitions and learning experiences.
+                </p>
+            </div>
+            
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-16">
+                <div class="bg-gradient-to-br from-kbe-blue to-blue-600 p-8 rounded-2xl text-white card-hover">
+                    <div class="w-16 h-16 bg-white bg-opacity-20 rounded-full flex items-center justify-center mb-6">
+                        <i class="fas fa-eye text-2xl"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4">Vision</h3>
+                    <p>To ignite curiosity and inspire a global generation of young minds to explore science, innovate boldly, and shape the future of research.</p>
+                </div>
+                
+                <div class="bg-gradient-to-br from-kbe-purple to-purple-600 p-8 rounded-2xl text-white card-hover">
+                    <div class="w-16 h-16 bg-white bg-opacity-20 rounded-full flex items-center justify-center mb-6">
+                        <i class="fas fa-target text-2xl"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4">Mission</h3>
+                    <p>To create an engaging, world-class platform for students through quizzes, expert sessions, and real-world experiences in science and research.</p>
+                </div>
+                
+                <div class="bg-gradient-to-br from-kbe-orange to-orange-600 p-8 rounded-2xl text-white card-hover">
+                    <div class="w-16 h-16 bg-white bg-opacity-20 rounded-full flex items-center justify-center mb-6">
+                        <i class="fas fa-trophy text-2xl"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4">Goals</h3>
+                    <p>To discover young talent and provide life-changing opportunities including ISRO visits, scholarships, and scientific equipment.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- @END_COMPONENT: AboutSection -->
+
+    <!-- Exam Structure Section -->
+    <!-- @COMPONENT: ExamSection [exam levels and structure information] -->
+    <section id="exams" class="py-20 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold text-gray-900 mb-4">Exam Structure</h2>
+                <p class="text-xl text-gray-600">Three levels of exciting challenges to test your scientific knowledge</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="bg-white rounded-2xl shadow-lg overflow-hidden card-hover">
+                    <!-- A group of young students working on science experiments in a bright laboratory -->
+                    <img src="https://pixabay.com/get/g335d7db860aac0dfad13ab3fa27d56933db457ddc42272720449fb7b6d7ee639473906e19eb7db7addfc30f02efb1a7332ac6b9abf354a2f0c431206c08de74e_1280.jpg" 
+                         alt="Grade I Level Students" class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <div class="bg-kbe-blue text-white px-4 py-2 rounded-full text-sm font-medium mb-4 inline-block">
+                            Grade I
+                        </div>
+                        <h3 class="text-xl font-bold mb-2">Classes V, VI & VII</h3>
+                        <p class="text-gray-600 mb-4">Foundation level to spark curiosity and basic scientific understanding.</p>
+                        <div class="text-2xl font-bold text-kbe-orange mb-4">₹270/-</div>
+                        <button class="w-full bg-kbe-blue text-white py-3 rounded-lg hover:bg-blue-700 transition-colors">
+                            Register Now
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="bg-white rounded-2xl shadow-lg overflow-hidden card-hover">
+                    <!-- Middle school students conducting chemistry experiments with beakers and microscopes -->
+                    <img src="https://images.unsplash.com/photo-1532094349884-543bc11b234d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=600&h=300" 
+                         alt="Grade II Level Students" class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <div class="bg-kbe-purple text-white px-4 py-2 rounded-full text-sm font-medium mb-4 inline-block">
+                            Grade II
+                        </div>
+                        <h3 class="text-xl font-bold mb-2">Classes VIII, IX & X</h3>
+                        <p class="text-gray-600 mb-4">Intermediate level to deepen scientific knowledge and analytical thinking.</p>
+                        <div class="text-2xl font-bold text-kbe-orange mb-4">₹360/-</div>
+                        <button class="w-full bg-kbe-purple text-white py-3 rounded-lg hover:bg-purple-700 transition-colors">
+                            Register Now
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="bg-white rounded-2xl shadow-lg overflow-hidden card-hover">
+                    <!-- High school students working with advanced scientific equipment and computers -->
+                    <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=600&h=300" 
+                         alt="Grade III Level Students" class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <div class="bg-kbe-orange text-white px-4 py-2 rounded-full text-sm font-medium mb-4 inline-block">
+                            Grade III
+                        </div>
+                        <h3 class="text-xl font-bold mb-2">Classes XI & XII+</h3>
+                        <p class="text-gray-600 mb-4">Advanced level for future scientists and researchers.</p>
+                        <div class="text-2xl font-bold text-kbe-orange mb-4">₹360/-</div>
+                        <button class="w-full bg-kbe-orange text-white py-3 rounded-lg hover:bg-orange-700 transition-colors">
+                            Register Now
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- @END_COMPONENT: ExamSection -->
+
+    <!-- Awards Section -->
+    <!-- @COMPONENT: AwardsSection [showcase of prizes and scholarships] -->
+    <section class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold text-gray-900 mb-4">Awards & Scholarships</h2>
+                <p class="text-xl text-gray-600">Special prizes for the first 3 winners of each grade level</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
+                <div class="text-center card-hover">
+                    <div class="bg-gradient-to-br from-yellow-400 to-yellow-600 w-24 h-24 rounded-full flex items-center justify-center mx-auto mb-6">
+                        <i class="fas fa-trophy text-3xl text-white"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-2">1st Prize</h3>
+                    <div class="bg-yellow-500 text-white px-4 py-2 rounded-full text-sm font-medium mb-4 inline-block">
+                        Telescope
+                    </div>
+                    <p class="text-gray-600">Monthly Scholarship + Einstein's Medal</p>
+                </div>
+                
+                <div class="text-center card-hover">
+                    <div class="bg-gradient-to-br from-gray-400 to-gray-600 w-24 h-24 rounded-full flex items-center justify-center mx-auto mb-6">
+                        <i class="fas fa-trophy text-3xl text-white"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-2">2nd Prize</h3>
+                    <div class="bg-gray-500 text-white px-4 py-2 rounded-full text-sm font-medium mb-4 inline-block">
+                        Microscope
+                    </div>
+                    <p class="text-gray-600">Monthly Scholarship + Trophy</p>
+                </div>
+                
+                <div class="text-center card-hover">
+                    <div class="bg-gradient-to-br from-orange-400 to-orange-600 w-24 h-24 rounded-full flex items-center justify-center mx-auto mb-6">
+                        <i class="fas fa-trophy text-3xl text-white"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-2">3rd Prize</h3>
+                    <div class="bg-orange-500 text-white px-4 py-2 rounded-full text-sm font-medium mb-4 inline-block">
+                        Binoculars
+                    </div>
+                    <p class="text-gray-600">Monthly Scholarship + Certificate</p>
+                </div>
+            </div>
+            
+            <div class="bg-gradient-to-r from-kbe-blue to-kbe-purple rounded-2xl p-8 text-white text-center">
+                <h3 class="text-3xl font-bold mb-4">ISRO Tour Experience</h3>
+                <p class="text-xl mb-6">Winner gets an exclusive opportunity to visit ISRO Space Center</p>
+                <!-- A panoramic view of ISRO space center with rockets and satellite dishes -->
+                <img src="https://images.unsplash.com/photo-1541185933-ef5d8ed016c2?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&h=300" 
+                     alt="ISRO Space Center" class="w-full h-48 object-cover rounded-xl mb-4">
+                <button class="bg-kbe-orange text-white px-8 py-3 rounded-full font-semibold hover:bg-orange-600 transition-colors">
+                    Learn More About ISRO Tour
+                </button>
+            </div>
+        </div>
+    </section>
+    <!-- @END_COMPONENT: AwardsSection -->
+
+    <!-- Training Section -->
+    <!-- @COMPONENT: TrainingSection [training programs and schedules] -->
+    <section id="training" class="py-20 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold text-gray-900 mb-4">Training Programs</h2>
+                <p class="text-xl text-gray-600">Comprehensive training to excel in your scientific journey</p>
+            </div>
+            
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                <div>
+                    <h3 class="text-3xl font-bold text-gray-900 mb-6">Expert-Led Training Sessions</h3>
+                    <div class="space-y-6">
+                        <div class="flex items-start">
+                            <div class="bg-kbe-blue text-white w-8 h-8 rounded-full flex items-center justify-center mr-4 mt-1">
+                                <i class="fas fa-check text-sm"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-lg">Interactive Online Sessions</h4>
+                                <p class="text-gray-600">Live sessions with renowned scientists and educators</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start">
+                            <div class="bg-kbe-purple text-white w-8 h-8 rounded-full flex items-center justify-center mr-4 mt-1">
+                                <i class="fas fa-check text-sm"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-lg">Practical Experiments</h4>
+                                <p class="text-gray-600">Hands-on activities to understand scientific concepts</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start">
+                            <div class="bg-kbe-orange text-white w-8 h-8 rounded-full flex items-center justify-center mr-4 mt-1">
+                                <i class="fas fa-check text-sm"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-lg">Mock Tests & Analysis</h4>
+                                <p class="text-gray-600">Regular assessments with detailed performance analysis</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <button class="bg-kbe-blue text-white px-8 py-4 rounded-full font-semibold text-lg hover:bg-blue-700 transition-colors mt-8">
+                        <i class="fas fa-play mr-2"></i>Start Training
+                    </button>
+                </div>
+                
+                <div class="relative">
+                    <!-- A teacher conducting science class with students engaged in learning -->
+                    <img src="https://pixabay.com/get/gcc21124984e3fba6502308fd357464909ac515e6802cf46848755ccaad2282c56368ca93ec83b4c39017cfc9f0e3090b969cc05508169059b1988256895b7cd0_1280.jpg" 
+                         alt="Science Training Session" class="w-full rounded-2xl shadow-lg">
+                    
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent rounded-2xl"></div>
+                    <div class="absolute bottom-6 left-6 text-white">
+                        <h4 class="font-bold text-xl">Live Training Sessions</h4>
+                        <p>Interactive learning with expert guidance</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- @END_COMPONENT: TrainingSection -->
+
+    <!-- Einstein Quote Section -->
+    <!-- @COMPONENT: QuoteSection [inspirational Einstein quotes] -->
+    <section class="py-20 bg-gradient-to-r from-kbe-purple to-kbe-blue text-white relative overflow-hidden">
+        <div class="absolute inset-0 opacity-10">
+            <!-- Scientific formula background pattern -->
+            <div class="text-6xl font-light transform rotate-12 absolute top-10 left-10">E=mc²</div>
+            <div class="text-4xl font-light transform -rotate-12 absolute bottom-20 right-20">∞</div>
+            <div class="text-5xl font-light transform rotate-45 absolute top-1/2 left-1/3">π</div>
+        </div>
+        
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
+            <!-- Famous Einstein portrait with wild hair and thoughtful expression -->
+            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=200&h=200" 
+                 alt="Einstein Portrait" class="w-32 h-32 rounded-full mx-auto mb-8 border-4 border-white shadow-lg">
+            
+            <blockquote class="text-3xl md:text-4xl font-light mb-8 leading-relaxed">
+                "Imagination is more important than knowledge. For knowledge is limited, whereas imagination embraces the entire world."
+            </blockquote>
+            
+            <cite class="text-xl font-medium">- Albert Einstein</cite>
+        </div>
+    </section>
+    <!-- @END_COMPONENT: QuoteSection -->
+
+    <!-- Gallery Section -->
+    <!-- @COMPONENT: GallerySection [photo gallery of events and achievements] -->
+    <section id="gallery" class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold text-gray-900 mb-4">Event Gallery</h2>
+                <p class="text-xl text-gray-600">Moments from our scientific journey and achievements</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Students participating in KBE competition in examination hall -->
+                <img src="https://images.unsplash.com/photo-1434030216411-0b793f4b4173?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=400&h=300" 
+                     alt="KBE Competition" class="w-full h-64 object-cover rounded-xl shadow-lg hover:shadow-xl transition-shadow cursor-pointer">
+                
+                <!-- Group of students with ISRO scientists at space center -->
+                <img src="https://images.unsplash.com/photo-1541185933-ef5d8ed016c2?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=400&h=300" 
+                     alt="ISRO Visit" class="w-full h-64 object-cover rounded-xl shadow-lg hover:shadow-xl transition-shadow cursor-pointer">
+                
+                <!-- Science teacher explaining concepts to engaged students -->
+                <img src="https://pixabay.com/get/g241633142f4757454426b43520cfce6a1e105a995332edfdf4257a4739654ad93dd54ed06d1cf216c239b6e6a19d94ff08138567db17a62840f66bc78640057c_1280.jpg" 
+                     alt="Training Session" class="w-full h-64 object-cover rounded-xl shadow-lg hover:shadow-xl transition-shadow cursor-pointer">
+                
+                <!-- Award ceremony with students receiving prizes and certificates -->
+                <img src="https://images.unsplash.com/photo-1560472354-b33ff0c44a43?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=400&h=300" 
+                     alt="Award Ceremony" class="w-full h-64 object-cover rounded-xl shadow-lg hover:shadow-xl transition-shadow cursor-pointer">
+                
+                <!-- Students conducting scientific experiments in laboratory -->
+                <img src="https://pixabay.com/get/gaa3e15d6ba9fc7b0c426b7f4cdbf564aad3fbec1ef03cd881e2f03f5d958e16b42ada6f85e009335a7dc836c5e464c40710375cd9ef6a17355f74262a09e3814_1280.jpg" 
+                     alt="Science Lab" class="w-full h-64 object-cover rounded-xl shadow-lg hover:shadow-xl transition-shadow cursor-pointer">
+                
+                <!-- Group photo of winners with telescopes and scientific equipment -->
+                <img src="https://images.unsplash.com/photo-1532094349884-543bc11b234d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=400&h=300" 
+                     alt="Winners" class="w-full h-64 object-cover rounded-xl shadow-lg hover:shadow-xl transition-shadow cursor-pointer">
+            </div>
+            
+            <div class="text-center mt-12">
+                <button class="bg-kbe-purple text-white px-8 py-3 rounded-full font-semibold hover:bg-purple-700 transition-colors">
+                    View More Photos
+                </button>
+            </div>
+        </div>
+    </section>
+    <!-- @END_COMPONENT: GallerySection -->
+
+    <!-- Contact Section -->
+    <!-- @COMPONENT: ContactSection [contact form and information] -->
+    <section id="contact" class="py-20 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold text-gray-900 mb-4">Contact Us</h2>
+                <p class="text-xl text-gray-600">Get in touch with us for any queries or support</p>
+            </div>
+            
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+                <div>
+                    <h3 class="text-2xl font-bold text-gray-900 mb-6">Get in Touch</h3>
+                    <div class="space-y-6">
+                        <div class="flex items-center">
+                            <div class="bg-kbe-blue text-white w-12 h-12 rounded-full flex items-center justify-center mr-4">
+                                <i class="fas fa-map-marker-alt"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold">Address</h4>
+                                <p class="text-gray-600">Block.01, N Post Office, Shivaji Nagar, (PB) Nashik</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-center">
+                            <div class="bg-kbe-purple text-white w-12 h-12 rounded-full flex items-center justify-center mr-4">
+                                <i class="fas fa-phone"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold">Phone</h4>
+                                <p class="text-gray-600">95294 99075</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-center">
+                            <div class="bg-kbe-orange text-white w-12 h-12 rounded-full flex items-center justify-center mr-4">
+                                <i class="fas fa-envelope"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold">Email</h4>
+                                <p class="text-gray-600">info@kbe-competition.com</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-center">
+                            <div class="bg-kbe-emerald text-white w-12 h-12 rounded-full flex items-center justify-center mr-4">
+                                <i class="fas fa-clock"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold">Office Hours</h4>
+                                <p class="text-gray-600">Mon - Sat: 9am to 5pm IST</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div>
+                    <form class="bg-white rounded-2xl shadow-lg p-8" data-implementation="Contact form with validation">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">First Name</label>
+                                <input type="text" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-kbe-blue focus:border-transparent" data-bind="form.firstName">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Last Name</label>
+                                <input type="text" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-kbe-blue focus:border-transparent" data-bind="form.lastName">
+                            </div>
+                        </div>
+                        
+                        <div class="mb-6">
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Email</label>
+                            <input type="email" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-kbe-blue focus:border-transparent" data-bind="form.email">
+                        </div>
+                        
+                        <div class="mb-6">
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Grade Level</label>
+                            <select class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-kbe-blue focus:border-transparent" data-bind="form.gradeLevel">
+                                <option>Select Grade Level</option>
+                                <option>Grade I (Classes V-VII)</option>
+                                <option>Grade II (Classes VIII-X)</option>
+                                <option>Grade III (Classes XI-XII+)</option>
+                            </select>
+                        </div>
+                        
+                        <div class="mb-6">
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Message</label>
+                            <textarea rows="4" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-kbe-blue focus:border-transparent" data-bind="form.message"></textarea>
+                        </div>
+                        
+                        <button type="submit" class="w-full bg-kbe-blue text-white py-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors" data-event="click:handleSubmit">
+                            Send Message
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- @END_COMPONENT: ContactSection -->
+
+    <!-- Footer -->
+    <!-- @COMPONENT: Footer [site footer with links and information] -->
+    <footer class="bg-gray-900 text-white py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div>
+                    <div class="flex items-center mb-4">
+                        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='45' fill='%237C3AED'/%3E%3Ctext x='50' y='55' text-anchor='middle' fill='white' font-size='12' font-weight='bold'%3EKBE%3C/text%3E%3C/svg%3E" alt="KBE Logo" class="h-8 w-8">
+                        <span class="ml-2 text-lg font-bold">KBE</span>
+                    </div>
+                    <p class="text-gray-400 mb-4">Empowering young minds to become the next generation of scientists through innovative competitions.</p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-gray-400 hover:text-white transition-colors"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-white transition-colors"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-white transition-colors"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-white transition-colors"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                
+                <div>
+                    <h4 class="text-lg font-semibold mb-4">Quick Links</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#home" class="text-gray-400 hover:text-white transition-colors">Home</a></li>
+                        <li><a href="#about" class="text-gray-400 hover:text-white transition-colors">About Us</a></li>
+                        <li><a href="#exams" class="text-gray-400 hover:text-white transition-colors">Exams</a></li>
+                        <li><a href="#training" class="text-gray-400 hover:text-white transition-colors">Training</a></li>
+                        <li><a href="#gallery" class="text-gray-400 hover:text-white transition-colors">Gallery</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="text-lg font-semibold mb-4">Resources</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Syllabus</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Sample Papers</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Previous Years</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Study Materials</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">FAQ</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="text-lg font-semibold mb-4">Contact Info</h4>
+                    <div class="space-y-2 text-gray-400">
+                        <p><i class="fas fa-map-marker-alt mr-2"></i>Nashik, Maharashtra</p>
+                        <p><i class="fas fa-phone mr-2"></i>95294 99075</p>
+                        <p><i class="fas fa-envelope mr-2"></i>info@kbe-competition.com</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-800 mt-12 pt-8 text-center">
+                <p class="text-gray-400">&copy; 2024 KBE - Kaun Banega Einstein. All rights reserved. | Designed to inspire young scientists.</p>
+            </div>
+        </div>
+    </footer>
+    <!-- @END_COMPONENT: Footer -->
+
+    <script>
+        // TODO: Implement interactive slider functionality
+        // TODO: Add mobile menu toggle functionality  
+        // TODO: Implement smooth scrolling for navigation
+        // TODO: Add form validation and submission handling
+        // TODO: Add gallery lightbox functionality
+        // TODO: Implement particle animation system
+        // TODO: Add intersection observer for animations
+        
+        (function() {
+            // Smooth scrolling for navigation links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        target.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                });
+            });
+
+            // Simple animation on scroll
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, observerOptions);
+
+            // Observe all card-hover elements for animation
+            document.querySelectorAll('.card-hover').forEach(el => {
+                el.style.opacity = '0';
+                el.style.transform = 'translateY(30px)';
+                el.style.transition = 'all 0.6s ease';
+                observer.observe(el);
+            });
+        })();
+    </script>
+</body>
+</html>
