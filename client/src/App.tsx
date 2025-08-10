@@ -18,15 +18,15 @@ function Router() {
     <div className="min-h-screen flex flex-col">
       <Navbar />
       <main className="flex-1">
-        <Switch>
-          <Route path="/" component={Home} />
-          <Route path="/about" component={About} />
-          <Route path="/exams" component={Exams} />
-          <Route path="/training" component={Training} />
-          <Route path="/gallery" component={Gallery} />
-          <Route path="/contact" component={Contact} />
-          <Route component={NotFound} />
-        </Switch>
+      <Switch>
+        <Route path="/einstein-quest" component={Home} />
+        <Route path="/einstein-quest/about" component={About} />
+        <Route path="/einstein-quest/exams" component={Exams} />
+        <Route path="/einstein-quest/training" component={Training} />
+        <Route path="/einstein-quest/gallery" component={Gallery} />
+        <Route path="/einstein-quest/contact" component={Contact} />
+        <Route component={NotFound} />
+      </Switch>
       </main>
       <Footer />
     </div>
