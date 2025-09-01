@@ -13,7 +13,6 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from 
 import { useToast } from "@/hooks/use-toast";
 import { apiRequest } from "@/lib/queryClient";
 import { insertRegistrationSchema } from "@shared/schema";
-import { EXAM_GRADES } from "@/lib/constants";
 import { 
   Calendar, 
   Clock, 
