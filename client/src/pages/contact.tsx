@@ -30,25 +30,25 @@ const contactOptions = [
     icon: MapPin,
     title: "Address",
     content: CONTACT_INFO.address,
-    color: "kbe-blue"
+    color: "slate"
   },
   {
     icon: Phone,
     title: "Phone",
     content: CONTACT_INFO.phone,
-    color: "kbe-purple"
+    color: "gray"
   },
   {
     icon: Mail,
     title: "Email", 
     content: CONTACT_INFO.email,
-    color: "kbe-orange"
+    color: "zinc"
   },
   {
     icon: Clock,
     title: "Office Hours",
     content: CONTACT_INFO.hours,
-    color: "kbe-emerald"
+    color: "neutral"
   }
 ];
 
@@ -151,16 +151,16 @@ export default function Contact() {
                   // Define color classes based on option color to avoid dynamic class name issues
                   const getIconBackgroundClass = (color: string) => {
                     switch (color) {
-                      case 'kbe-blue':
-                        return 'bg-blue-600';
-                      case 'kbe-purple':
-                        return 'bg-purple-600';
-                      case 'kbe-orange':
-                        return 'bg-orange-600';
-                      case 'kbe-emerald':
-                        return 'bg-emerald-600';
+                      case 'slate':
+                        return 'bg-slate-600';
+                      case 'gray':
+                        return 'bg-gray-600';
+                      case 'zinc':
+                        return 'bg-zinc-600';
+                      case 'neutral':
+                        return 'bg-neutral-600';
                       default:
-                        return 'bg-blue-600';
+                        return 'bg-slate-600';
                     }
                   };
                   

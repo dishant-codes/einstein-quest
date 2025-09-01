@@ -6,6 +6,15 @@ import { z } from "zod";
 
 export async function registerRoutes(app: Express): Promise<Server> {
   
+  // Health check endpoint for monitoring
+  app.get("/api/health", (req, res) => {
+    res.json({ 
+      status: "ok", 
+      timestamp: new Date().toISOString(),
+      environment: process.env.NODE_ENV || "development"
+    });
+  });
+  
   // Contact form submission
   app.post("/api/contacts", async (req, res) => {
     try {
