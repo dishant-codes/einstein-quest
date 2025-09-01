@@ -723,14 +723,14 @@ export default function Exams() {
                   type="button" 
                   variant="outline" 
                   onClick={() => setIsRegistrationOpen(false)}
-                  className="flex-1"
+                  className="flex-1 border border-blue-700 text-blue-700 hover:bg-blue-700 hover:text-white"
                   data-testid="button-cancel-registration"
                 >
                   Cancel
                 </Button>
                 <Button 
                   type="submit" 
-                  className="flex-1 bg-kbe-blue hover:bg-blue-700"
+                  className="flex-1 bg-blue-700 hover:bg-blue-800"
                   disabled={registrationMutation.isPending}
                   data-testid="button-submit-registration"
                 >
