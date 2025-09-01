@@ -19,6 +19,7 @@ function Router() {
       <Navbar />
       <main className="flex-1">
       <Switch>
+        <Route path="/" component={Home} />
         <Route path="/einstein-quest" component={Home} />
         <Route path="/einstein-quest/about" component={About} />
         <Route path="/einstein-quest/exams" component={Exams} />
