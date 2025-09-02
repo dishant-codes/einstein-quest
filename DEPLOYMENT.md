@@ -1,6 +1,17 @@
 # 🚀 KBE Platform - Vercel Deployment Guide
 
-## 📋 Pre-Deployment Checklist
+## � IMPORTANT: Fix for 405 Registration Errors
+
+**Your registration 405 error is happening because Vercel doesn't know how to handle your backend API routes.**
+
+I've created serverless function versions of your API endpoints in the `/api` folder:
+
+- `/api/health.ts` - Health check endpoint
+- `/api/contacts.ts` - Contact form endpoints  
+- `/api/registrations.ts` - Registration endpoints
+- `/api/registrations/[id].ts` - Individual registration lookup
+
+## �📋 Pre-Deployment Checklist
 
 ### ✅ Configuration Files Ready
 - `vercel.json` - Vercel deployment configuration
