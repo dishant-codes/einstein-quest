@@ -1,5 +1,22 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node';
-import { storage } from '../../server/storage';
+import { MongoClient } from 'mongodb';
+
+// Direct MongoDB connection for serverless function
+async function connectToMongoDB() {
+  const uri = process.env.MONGODB_URI;
+  if (!uri) {
+    throw new Error('MONGODB_URI environment variable is not set');
+  }
+  
+  const client = new MongoClient(uri, {
+    maxPoolSize: 10,
+    serverSelectionTimeoutMS: 5000,
+    socketTimeoutMS: 45000,
+  });
+  
+  await client.connect();
+  return client.db('einstein_quest');
+}
 
 export default async function handler(req: VercelRequest, res: VercelResponse) {
   // Enable CORS
@@ -18,14 +35,16 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
         return res.status(400).json({ message: 'Registration ID is required' });
       }
 
-      const registration = await storage.getRegistrationById(id);
+      const db = await connectToMongoDB();
+      const registration = await db.collection('registrations').findOne({ id });
+      
       if (!registration) {
         return res.status(404).json({ message: "Registration not found" });
       }
       res.json(registration);
     } catch (error) {
       console.error('Get registration by ID error:', error);
-      res.status(500).json({ message: "Internal server error" });
+      res.status(500).json({ message: "Internal server error", error: error.message });
     }
   } else {
     res.status(405).json({ message: 'Method not allowed' });

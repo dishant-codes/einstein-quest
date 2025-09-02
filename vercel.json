@@ -1,9 +1,4 @@
 {
-  "functions": {
-    "api/**/*.ts": {
-      "runtime": "@vercel/node@3"
-    }
-  },
   "buildCommand": "npm run build:client",
   "outputDirectory": "dist",
   "installCommand": "npm install",
@@ -16,8 +11,5 @@
       "source": "/(.*)",
       "destination": "/index.html"
     }
-  ],
-  "env": {
-    "MONGODB_URI": "@mongodb_uri"
-  }
+  ]
 }
