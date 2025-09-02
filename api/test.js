@@ -1,7 +1,5 @@
-import type { VercelRequest, VercelResponse } from '@vercel/node';
-
-export default async function handler(req: VercelRequest, res: VercelResponse) {
-  console.log('Test function called:', req.method, req.url);
+export default async function handler(req, res) {
+  console.log('Test API called:', req.method);
   
   // Enable CORS
   res.setHeader('Access-Control-Allow-Origin', '*');
@@ -14,11 +12,12 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 
   try {
     const testData = {
-      message: "Test API endpoint working",
+      message: "Test API endpoint working!",
       timestamp: new Date().toISOString(),
       method: req.method,
-      environment: process.env.NODE_ENV,
+      environment: process.env.NODE_ENV || 'production',
       hasMongoUri: !!process.env.MONGODB_URI,
+      userAgent: req.headers['user-agent'],
       requestBody: req.body
     };
     

@@ -1,6 +1,6 @@
-import type { VercelRequest, VercelResponse } from '@vercel/node';
-
-export default function handler(req: VercelRequest, res: VercelResponse) {
+export default function handler(req, res) {
+  console.log('Health check called:', req.method);
+  
   // Enable CORS
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'GET, OPTIONS');
@@ -18,6 +18,7 @@ export default function handler(req: VercelRequest, res: VercelResponse) {
     status: "ok", 
     timestamp: new Date().toISOString(),
     environment: process.env.NODE_ENV || "production",
-    message: "Einstein Quest API is running on Vercel"
+    message: "Einstein Quest API is running on Vercel",
+    version: "1.0.0"
   });
 }

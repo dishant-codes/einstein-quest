@@ -1,9 +1,4 @@
 {
-  "functions": {
-    "api/**/*.ts": {
-      "runtime": "@vercel/node@20"
-    }
-  },
   "buildCommand": "npm run build:client",
   "outputDirectory": "dist",
   "installCommand": "npm install",

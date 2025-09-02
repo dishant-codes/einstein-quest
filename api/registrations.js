@@ -1,6 +1,4 @@
-import type { VercelRequest, VercelResponse } from '@vercel/node';
-
-export default async function handler(req: VercelRequest, res: VercelResponse) {
+export default async function handler(req, res) {
   console.log('Registration API called:', req.method);
   
   // Enable CORS
@@ -23,7 +21,8 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       if (!studentName || !email || !examType) {
         return res.status(400).json({ 
           message: "Missing required fields",
-          required: ["studentName", "email", "examType"]
+          required: ["studentName", "email", "examType"],
+          received: { studentName, email, examType }
         });
       }
       
@@ -47,7 +46,8 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     } else if (req.method === 'GET') {
       res.json({ 
         message: "Registration API is working",
-        timestamp: new Date().toISOString()
+        timestamp: new Date().toISOString(),
+        environment: process.env.NODE_ENV || 'production'
       });
     } else {
       res.status(405).json({ message: 'Method not allowed' });
