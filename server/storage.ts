@@ -15,44 +15,115 @@ export interface IStorage {
   getRegistrationById(id: string): Promise<Registration | undefined>;
 }
 
-export class MongoStorage implements IStorage {
-  private client: MongoClient;
-  private db: Db;
-  private users: Collection<User>;
-  private contacts: Collection<Contact>;
-  private registrations: Collection<Registration>;
+// Singleton MongoDB connection manager
+class MongoConnection {
+  private static instance: MongoConnection;
+  private client: MongoClient | null = null;
+  private db: Db | null = null;
+  private isConnecting: boolean = false;
 
-  constructor() {
-    const uri = process.env.MONGODB_URI || "mongodb+srv://dishantaarak2696_db_user:Gt457tw8vmXk6LOw@kaunbanegaeinstein.xxlzfp6.mongodb.net/?retryWrites=true&w=majority&appName=kaunbanegaeinstein";
-    this.client = new MongoClient(uri);
-    this.db = this.client.db("kbe_database");
-    this.users = this.db.collection<User>("users");
-    this.contacts = this.db.collection<Contact>("contacts");
-    this.registrations = this.db.collection<Registration>("registrations");
-    
-    // Connect to MongoDB
-    this.connect();
+  private constructor() {}
+
+  static getInstance(): MongoConnection {
+    if (!MongoConnection.instance) {
+      MongoConnection.instance = new MongoConnection();
+    }
+    return MongoConnection.instance;
   }
 
-  private async connect() {
+  async getConnection(): Promise<{ client: MongoClient; db: Db }> {
+    if (this.client && this.db) {
+      return { client: this.client, db: this.db };
+    }
+
+    if (this.isConnecting) {
+      // Wait for connection to complete
+      while (this.isConnecting) {
+        await new Promise(resolve => setTimeout(resolve, 100));
+      }
+      if (this.client && this.db) {
+        return { client: this.client, db: this.db };
+      }
+    }
+
+    this.isConnecting = true;
     try {
+      const uri = process.env.MONGODB_URI || "mongodb+srv://dishantaarak2696_db_user:Gt457tw8vmXk6LOw@kaunbanegaeinstein.xxlzfp6.mongodb.net/?retryWrites=true&w=majority&appName=kaunbanegaeinstein";
+      
+      this.client = new MongoClient(uri, {
+        maxPoolSize: 10,
+        serverSelectionTimeoutMS: 5000,
+        socketTimeoutMS: 45000,
+        maxIdleTimeMS: 30000,
+        connectTimeoutMS: 10000,
+      });
+
       await this.client.connect();
+      this.db = this.client.db("kbe_database");
+      
       console.log("Connected to MongoDB successfully");
       
-      // Create indexes for better performance
-      await this.users.createIndex({ username: 1 }, { unique: true });
-      await this.contacts.createIndex({ email: 1 });
-      await this.registrations.createIndex({ email: 1 });
-      await this.registrations.createIndex({ createdAt: -1 });
-      
+      return { client: this.client, db: this.db };
     } catch (error) {
       console.error("Failed to connect to MongoDB:", error);
+      this.client = null;
+      this.db = null;
+      throw error;
+    } finally {
+      this.isConnecting = false;
+    }
+  }
+
+  async disconnect() {
+    if (this.client) {
+      await this.client.close();
+      this.client = null;
+      this.db = null;
+      console.log("Disconnected from MongoDB");
+    }
+  }
+}
+
+export class MongoStorage implements IStorage {
+  private mongoConnection: MongoConnection;
+  private indexesCreated: boolean = false;
+
+  constructor() {
+    this.mongoConnection = MongoConnection.getInstance();
+  }
+
+  private async getCollections() {
+    const { db } = await this.mongoConnection.getConnection();
+    return {
+      users: db.collection<User>("users"),
+      contacts: db.collection<Contact>("contacts"),
+      registrations: db.collection<Registration>("registrations")
+    };
+  }
+
+  private async ensureIndexes() {
+    if (this.indexesCreated) return;
+    
+    try {
+      const { users, contacts, registrations } = await this.getCollections();
+      
+      // Create indexes for better performance
+      await users.createIndex({ username: 1 }, { unique: true });
+      await contacts.createIndex({ email: 1 });
+      await registrations.createIndex({ email: 1 });
+      await registrations.createIndex({ createdAt: -1 });
+      
+      this.indexesCreated = true;
+      console.log("MongoDB indexes created successfully");
+    } catch (error) {
+      console.error("Error creating indexes:", error);
     }
   }
 
   async getUser(id: string): Promise<User | undefined> {
     try {
-      const user = await this.users.findOne({ id });
+      const { users } = await this.getCollections();
+      const user = await users.findOne({ id });
       return user || undefined;
     } catch (error) {
       console.error("Error getting user:", error);
@@ -62,7 +133,8 @@ export class MongoStorage implements IStorage {
 
   async getUserByUsername(username: string): Promise<User | undefined> {
     try {
-      const user = await this.users.findOne({ username });
+      const { users } = await this.getCollections();
+      const user = await users.findOne({ username });
       return user || undefined;
     } catch (error) {
       console.error("Error getting user by username:", error);
@@ -72,9 +144,11 @@ export class MongoStorage implements IStorage {
 
   async createUser(insertUser: InsertUser): Promise<User> {
     try {
+      await this.ensureIndexes();
+      const { users } = await this.getCollections();
       const id = randomUUID();
       const user: User = { ...insertUser, id };
-      await this.users.insertOne(user);
+      await users.insertOne(user);
       return user;
     } catch (error) {
       console.error("Error creating user:", error);
@@ -84,13 +158,16 @@ export class MongoStorage implements IStorage {
 
   async createContact(insertContact: InsertContact): Promise<Contact> {
     try {
+      await this.ensureIndexes();
+      const { contacts } = await this.getCollections();
       const id = randomUUID();
       const contact: Contact = { 
         ...insertContact, 
         id, 
         createdAt: new Date() 
       };
-      await this.contacts.insertOne(contact);
+      await contacts.insertOne(contact);
+      console.log("Contact created successfully:", id);
       return contact;
     } catch (error) {
       console.error("Error creating contact:", error);
@@ -100,8 +177,9 @@ export class MongoStorage implements IStorage {
 
   async getContacts(): Promise<Contact[]> {
     try {
-      const contacts = await this.contacts.find({}).sort({ createdAt: -1 }).toArray();
-      return contacts;
+      const { contacts } = await this.getCollections();
+      const contactList = await contacts.find({}).sort({ createdAt: -1 }).toArray();
+      return contactList;
     } catch (error) {
       console.error("Error getting contacts:", error);
       return [];
@@ -110,6 +188,8 @@ export class MongoStorage implements IStorage {
 
   async createRegistration(insertRegistration: InsertRegistration): Promise<Registration> {
     try {
+      await this.ensureIndexes();
+      const { registrations } = await this.getCollections();
       const id = randomUUID();
       const registration: Registration = { 
         ...insertRegistration, 
@@ -117,19 +197,28 @@ export class MongoStorage implements IStorage {
         paymentStatus: "pending",
         createdAt: new Date() 
       };
-      await this.registrations.insertOne(registration);
-      console.log("Registration created successfully:", registration.id);
+      
+      console.log("Creating registration with data:", {
+        id,
+        studentName: registration.studentName,
+        email: registration.email,
+        examType: registration.examType
+      });
+      
+      const result = await registrations.insertOne(registration);
+      console.log("Registration created successfully:", id, "MongoDB ID:", result.insertedId);
       return registration;
     } catch (error) {
       console.error("Error creating registration:", error);
-      throw new Error("Failed to create registration");
+      throw new Error("Failed to create registration: " + (error as Error).message);
     }
   }
 
   async getRegistrations(): Promise<Registration[]> {
     try {
-      const registrations = await this.registrations.find({}).sort({ createdAt: -1 }).toArray();
-      return registrations;
+      const { registrations } = await this.getCollections();
+      const registrationList = await registrations.find({}).sort({ createdAt: -1 }).toArray();
+      return registrationList;
     } catch (error) {
       console.error("Error getting registrations:", error);
       return [];
@@ -138,7 +227,8 @@ export class MongoStorage implements IStorage {
 
   async getRegistrationById(id: string): Promise<Registration | undefined> {
     try {
-      const registration = await this.registrations.findOne({ id });
+      const { registrations } = await this.getCollections();
+      const registration = await registrations.findOne({ id });
       return registration || undefined;
     } catch (error) {
       console.error("Error getting registration by id:", error);
