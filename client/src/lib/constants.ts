@@ -180,7 +180,7 @@ export const EINSTEIN_QUOTES = [
 
 export const CONTACT_INFO = {
   address: "Block.01, N Post Office, Shivaji Nagar, (PB) Nashik",
-  phone: "95294 99075",
-  email: "info@kbe-competition.com",
+  phone: "82086 65658",
+  email: "info@kaunbanegaeinstein.com",
   hours: "Mon - Sat: 9am to 5pm IST"
 };

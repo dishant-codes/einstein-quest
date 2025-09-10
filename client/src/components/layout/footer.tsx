@@ -23,10 +23,10 @@ export default function Footer() {
               <a href="#" className="text-gray-400 hover:text-white transition-colors" data-testid="link-twitter">
                 <Twitter className="h-5 w-5" />
               </a>
-              <a href="#" className="text-gray-400 hover:text-white transition-colors" data-testid="link-instagram">
+              <a href="https://www.instagram.com/invites/contact/?igsh=1iqudilpj19yi&utm_content=z00b3yd" className="text-gray-400 hover:text-white transition-colors" data-testid="link-instagram">
                 <Instagram className="h-5 w-5" />
               </a>
-              <a href="#" className="text-gray-400 hover:text-white transition-colors" data-testid="link-youtube">
+              <a href="https://www.youtube.com/@kaunbanegaeinstein" className="text-gray-400 hover:text-white transition-colors" data-testid="link-youtube">
                 <Youtube className="h-5 w-5" />
               </a>
             </div>
