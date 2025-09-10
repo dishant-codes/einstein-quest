@@ -2,10 +2,10 @@
 // This client makes requests to external APIs only
 
 // Demo mode flag - set to false for real API calls
-const FORCE_DEMO_MODE = import.meta.env.VITE_DEMO_MODE === 'true' || false;
+const FORCE_DEMO_MODE = false;
 
 // Remove the '/api' suffix as it's added by the individual API methods
-const API_BASE_URL = import.meta.env.VITE_API_URL || 'https://einstein-quest-server.onrender.com';
+const API_BASE_URL = 'https://einstein-quest-server.onrender.com';
 
 // Generic API client class
 class ApiClient {
