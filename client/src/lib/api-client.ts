@@ -139,7 +139,7 @@ class ApiClient {
   }
 
   async registerCandidateWithFiles(formData: FormData) {
-    console.log('Sending candidate registration to /api/candidates');
+    console.log('Sending candidate registration /api/candidates');
     console.log('candidateId in FormData:', formData.get('candidateId'));
     console.log('mentorCode in FormData:', formData.get('mentorCode'));
     
