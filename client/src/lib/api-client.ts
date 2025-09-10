@@ -2,7 +2,7 @@
 // This client makes requests to external APIs only
 
 // Demo mode flag - set to false for real API calls
-const FORCE_DEMO_MODE = import.meta.env.VITE_DEMO_MODE === 'true' || false;
+const FORCE_DEMO_MODE = false;
 
 // Remove the '/api' suffix as it's added by the individual API methods
 const API_BASE_URL = 'https://einstein-quest-server.onrender.com';
@@ -139,7 +139,7 @@ class ApiClient {
   }
 
   async registerCandidateWithFiles(formData: FormData) {
-    console.log('Sending candidate registration to /api/candidates');
+    console.log('Sending candidate registration /api/candidates');
     console.log('candidateId in FormData:', formData.get('candidateId'));
     console.log('mentorCode in FormData:', formData.get('mentorCode'));
     

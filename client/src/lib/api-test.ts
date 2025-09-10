@@ -84,7 +84,7 @@ export async function testApiClient() {
   try {
     // Test Exam Statistics
     console.log('\n📊 Testing Exam Statistics...');
-    const stats = await apiClient.getExamStatistics();
+    const stats = await apiClient.getStatistics();
     console.log('✅ Exam Statistics:', stats);
   } catch (error) {
     console.log('❌ Exam Statistics Failed:', error instanceof Error ? error.message : 'Unknown error');
