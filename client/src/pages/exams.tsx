@@ -1,18 +1,8 @@
-import { useEffect, useState } from "react";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { useEffect } from "react";
+import { useLocation } from "wouter";
+import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Textarea } from "@/components/ui/textarea";
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
-import { useToast } from "@/hooks/use-toast";
-import { apiRequest } from "@/lib/queryClient";
-import { insertRegistrationSchema } from "@shared/schema";
 import { 
   Calendar, 
   Clock, 
@@ -34,21 +24,7 @@ import {
   Shield,
   Gift
 } from "lucide-react";
-import { z } from "zod";
 
-const registrationFormSchema = insertRegistrationSchema.extend({
-  studentName: z.string().min(2, "Student name must be at least 2 characters"),
-  email: z.string().email("Please enter a valid email address"),
-  phone: z.string().min(10, "Phone number must be at least 10 digits"),
-  gradeLevel: z.string().min(1, "Please select a grade level"),
-  schoolName: z.string().min(2, "School name must be at least 2 characters"),
-  parentName: z.string().min(2, "Parent name must be at least 2 characters"),
-  parentPhone: z.string().min(10, "Parent phone must be at least 10 digits"),
-  address: z.string().min(10, "Address must be at least 10 characters"),
-  examType: z.string().min(1, "Please select an exam type"),
-});
-
-type RegistrationFormData = z.infer<typeof registrationFormSchema>;
 
 const examLevels = [
   {
@@ -184,55 +160,11 @@ const examStats = [
 ];
 
 export default function Exams() {
-  const [selectedGrade, setSelectedGrade] = useState<string>("");
-  const [isRegistrationOpen, setIsRegistrationOpen] = useState(false);
-  const { toast } = useToast();
-  const queryClient = useQueryClient();
+  const [, setLocation] = useLocation();
 
   useEffect(() => {
     document.title = "Exam Registration - KBE Young Scientist Competition";
   }, []);
-
-  const form = useForm<RegistrationFormData>({
-    resolver: zodResolver(registrationFormSchema),
-    defaultValues: {
-      studentName: "",
-      email: "",
-      phone: "",
-      gradeLevel: "",
-      schoolName: "",
-      parentName: "",
-      parentPhone: "",
-      address: "",
-      examType: "",
-    },
-  });
-
-  const registrationMutation = useMutation({
-    mutationFn: async (data: RegistrationFormData) => {
-      return await apiRequest("POST", "/api/registrations", data);
-    },
-    onSuccess: () => {
-      toast({
-        title: "Registration Successful!",
-        description: "Your exam registration has been submitted successfully. You will receive a confirmation email shortly.",
-      });
-      form.reset();
-      setIsRegistrationOpen(false);
-      queryClient.invalidateQueries({ queryKey: ["/api/registrations"] });
-    },
-    onError: (error: any) => {
-      toast({
-        title: "Registration Failed",
-        description: error.message || "Something went wrong. Please try again.",
-        variant: "destructive",
-      });
-    },
-  });
-
-  const onSubmit = (data: RegistrationFormData) => {
-    registrationMutation.mutate(data);
-  };
 
   return (
     <div className="pt-20" data-testid="page-exams">
@@ -334,20 +266,13 @@ export default function Exams() {
                   </Badge>
                   
                   {index === 0 && (
-                    <Dialog open={isRegistrationOpen} onOpenChange={setIsRegistrationOpen}>
-                      <DialogTrigger asChild>
-                        <Button 
-                          className={`w-full bg-gradient-to-r ${level.color} hover:opacity-90 text-white`}
-                          onClick={() => {
-                            setSelectedGrade('mains');
-                            form.setValue("examType", "mains");
-                          }}
-                          data-testid="button-register-mains"
-                        >
-                          Register Now
-                        </Button>
-                      </DialogTrigger>
-                    </Dialog>
+                    <Button 
+                      className={`w-full bg-gradient-to-r ${level.color} hover:opacity-90 text-white`}
+                      onClick={() => setLocation("/einstein-quest/online-registrations")}
+                      data-testid="button-register-mains"
+                    >
+                      Register Now
+                    </Button>
                   )}
                   
                   {index > 0 && (
@@ -537,209 +462,18 @@ export default function Exams() {
                 </div>
               </div>
               
-              <Dialog open={isRegistrationOpen} onOpenChange={setIsRegistrationOpen}>
-                <DialogTrigger asChild>
-                  <Button 
-                    size="lg"
-                    className="bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-600 hover:to-red-600 text-white px-12 py-4 text-xl font-bold rounded-full shadow-2xl transform hover:scale-105 transition-all duration-300"
-                    onClick={() => {
-                      setSelectedGrade('mains');
-                      form.setValue("examType", "mains");
-                    }}
-                  >
-                    <Zap className="h-6 w-6 mr-2" />
-                    Start Your Scientific Journey
-                  </Button>
-                </DialogTrigger>
-              </Dialog>
+              <Button 
+                size="lg"
+                className="bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-600 hover:to-red-600 text-white px-12 py-4 text-xl font-bold rounded-full shadow-2xl transform hover:scale-105 transition-all duration-300"
+                onClick={() => setLocation("/einstein-quest/online-registrations")}
+              >
+                <Zap className="h-6 w-6 mr-2" />
+                Start Your Scientific Journey
+              </Button>
             </CardContent>
           </Card>
         </div>
       </section>
-
-      {/* Registration Dialog */}
-      <Dialog open={isRegistrationOpen} onOpenChange={setIsRegistrationOpen}>
-        <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto" data-testid="dialog-registration">
-          <DialogHeader>
-            <DialogTitle data-testid="text-registration-dialog-title">
-              KBE Exam Registration
-            </DialogTitle>
-          </DialogHeader>
-          
-          <Form {...form}>
-            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6" data-testid="form-registration">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <FormField
-                  control={form.control}
-                  name="studentName"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Student Name</FormLabel>
-                      <FormControl>
-                        <Input placeholder="Enter student name" {...field} data-testid="input-student-name" />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                
-                <FormField
-                  control={form.control}
-                  name="email"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Email</FormLabel>
-                      <FormControl>
-                        <Input type="email" placeholder="Enter email address" {...field} data-testid="input-email" />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-              </div>
-              
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <FormField
-                  control={form.control}
-                  name="phone"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Phone Number</FormLabel>
-                      <FormControl>
-                        <Input placeholder="Enter phone number" {...field} data-testid="input-phone" />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                
-                <FormField
-                  control={form.control}
-                  name="gradeLevel"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Grade Level</FormLabel>
-                      <Select onValueChange={field.onChange} defaultValue={field.value}>
-                        <FormControl>
-                          <SelectTrigger data-testid="select-grade-level">
-                            <SelectValue placeholder="Select grade level" />
-                          </SelectTrigger>
-                        </FormControl>
-                        <SelectContent>
-                          <SelectItem value="Grade I">Grade I (Classes V-VII)</SelectItem>
-                          <SelectItem value="Grade II">Grade II (Classes VIII-X)</SelectItem>
-                          <SelectItem value="Grade III">Grade III (Classes XI-XII+)</SelectItem>
-                        </SelectContent>
-                      </Select>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-              </div>
-              
-              <FormField
-                control={form.control}
-                name="schoolName"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>School Name</FormLabel>
-                    <FormControl>
-                      <Input placeholder="Enter school name" {...field} data-testid="input-school-name" />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <FormField
-                  control={form.control}
-                  name="parentName"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Parent Name</FormLabel>
-                      <FormControl>
-                        <Input placeholder="Enter parent name" {...field} data-testid="input-parent-name" />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                
-                <FormField
-                  control={form.control}
-                  name="parentPhone"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Parent Phone</FormLabel>
-                      <FormControl>
-                        <Input placeholder="Enter parent phone" {...field} data-testid="input-parent-phone" />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-              </div>
-              
-              <FormField
-                control={form.control}
-                name="address"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Address</FormLabel>
-                    <FormControl>
-                      <Textarea placeholder="Enter complete address" {...field} data-testid="textarea-address" />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              
-              <FormField
-                control={form.control}
-                name="examType"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Exam Type</FormLabel>
-                    <Select onValueChange={field.onChange} defaultValue={field.value}>
-                      <FormControl>
-                        <SelectTrigger data-testid="select-exam-type">
-                          <SelectValue placeholder="Select exam type" />
-                        </SelectTrigger>
-                      </FormControl>
-                      <SelectContent>
-                        <SelectItem value="mains">KBE-Mains</SelectItem>
-                        <SelectItem value="advance">KBE-Advance</SelectItem>
-                      </SelectContent>
-                    </Select>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              
-              <div className="flex gap-4 pt-4">
-                <Button 
-                  type="button" 
-                  variant="outline" 
-                  onClick={() => setIsRegistrationOpen(false)}
-                  className="flex-1 border border-blue-700 text-blue-700 hover:bg-blue-700 hover:text-white"
-                  data-testid="button-cancel-registration"
-                >
-                  Cancel
-                </Button>
-                <Button 
-                  type="submit" 
-                  className="flex-1 bg-blue-700 hover:bg-blue-800"
-                  disabled={registrationMutation.isPending}
-                  data-testid="button-submit-registration"
-                >
-                  {registrationMutation.isPending ? "Submitting..." : "Register Now"}
-                </Button>
-              </div>
-            </form>
-          </Form>
-        </DialogContent>
-      </Dialog>
     </div>
   );
 }

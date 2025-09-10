@@ -1,117 +1,91 @@
-# Einstein Quest - KBE Competition Platform
+# Einstein Quest - Frontend Only
 
-A modern web application for the "Kaun Banega Einstein" (KBE) young scientist competition, built with React, TypeScript, and Tailwind CSS.
+This is a static frontend application for the Einstein Quest registration system.
 
-## 🚀 Features
+## Architecture
 
-- **Modern React Frontend**: Built with React 18, TypeScript, and Vite
-- **Responsive Design**: Mobile-first design with Tailwind CSS
-- **Interactive Components**: Hero slider, exam registration forms, and contact forms
-- **Award System**: Display of competition awards and scholarships
-- **Contact System**: Contact form with validation
+This application is now configured as a **client-only** application that makes API calls to external services. All server-side code and MongoDB connections have been removed.
 
-## 🛠️ Tech Stack
+## Structure
 
-- **Frontend**: React 18, TypeScript, Vite
-- **Styling**: Tailwind CSS, shadcn/ui components
-- **Routing**: Wouter
-- **State Management**: TanStack React Query
-- **Forms**: React Hook Form with Zod validation
-- **Icons**: Lucide React
-- **Backend**: Node.js, Express, TypeScript
-- **Database**: PostgreSQL with Drizzle ORM
-
-## 📦 Installation
-
-1. Clone the repository:
-```bash
-git clone https://github.com/yourusername/einstein-quest.git
-cd einstein-quest
+```
+client/
+├── src/
+│   ├── components/     # React components
+│   ├── lib/
+│   │   └── api-client.ts   # External API client (using fetch)
+│   ├── pages/          # Application pages
+│   └── ...
+dist/                   # Build output
 ```
 
-2. Install dependencies:
+## API Client
+
+The application includes an API client (`client/src/lib/api-client.ts`) that makes HTTP requests to external APIs using the native `fetch` API. 
+
+### Configuration
+
+Set your external API URL in the environment variables:
+
 ```bash
+VITE_API_URL=https://your-external-api.com/api
+```
+
+### Demo Mode
+
+When no external API is configured, the application runs in demo mode with mock responses.
+
+## Development
+
+```bash
+# Install dependencies
 npm install
-```
 
-3. Start the development server:
-```bash
+# Start development server
 npm run dev
-```
 
-4. Open [http://localhost:5000](http://localhost:5000) in your browser.
-
-## 🏗️ Build
-
-Build the project for production:
-
-```bash
+# Build for production
 npm run build
 ```
 
-Build only the client (for GitHub Pages):
+## Deployment
 
-```bash
-npm run build:client
-```
+This application can be deployed to any static hosting service (Vercel, Netlify, GitHub Pages, etc.) as it contains no server-side code.
 
-## 🚀 Deployment
+### Vercel Deployment
 
-### GitHub Pages
+The application is configured for Vercel static deployment. Simply push to your repository and Vercel will automatically build and deploy.
 
-This project is configured for automatic deployment to GitHub Pages using GitHub Actions.
+## API Integration
 
-1. Push your code to the `main` branch
-2. GitHub Actions will automatically build and deploy to GitHub Pages
-3. Your site will be available at `https://yourusername.github.io/einstein-quest`
+To integrate with your backend API:
 
-### Manual Deployment to GitHub Pages
+1. Set the `VITE_API_URL` environment variable
+2. Ensure your API supports CORS for the frontend domain
+3. The API client expects the following endpoints:
+   - `GET /health` - Health check
+   - `POST /schools` - School registration
+   - `GET /schools` - Get schools
+   - `POST /mentors` - Mentor registration
+   - `GET /mentors` - Get mentors
+   - `POST /candidates` - Candidate registration
+   - `GET /candidates` - Get candidates
+   - `GET /statistics` - Get statistics
 
-```bash
-npm run deploy
-```
+## Removed Components
 
-## 📁 Project Structure
+The following have been completely removed:
+- ❌ MongoDB connections and database logic
+- ❌ Express.js server
+- ❌ API routes and handlers
+- ❌ Server-side authentication
+- ❌ Backend data models and schemas
 
-```
-├── client/                 # Frontend React application
-│   ├── src/
-│   │   ├── components/     # Reusable UI components
-│   │   ├── pages/          # Page components
-│   │   ├── hooks/          # Custom React hooks
-│   │   └── lib/            # Utility functions and constants
-├── server/                 # Backend Express server
-├── shared/                 # Shared schemas and types
-└── .github/workflows/      # GitHub Actions workflows
-```
+## Kept Components
 
-## 🎯 Pages
-
-- **Home**: Hero section, about, exam preview, awards, and quotes
-- **About**: Detailed information about the competition
-- **Exams**: Exam registration and information
-- **Contact**: Contact form and information
-
-## 🏆 Competition Details
-
-The KBE (Kaun Banega Einstein) competition is designed for young scientists across different grade levels:
-
-- **Grade I**: Classes V, VI & VII
-- **Grade II**: Classes VIII, IX & X  
-- **Grade III**: Classes XI & XII+
-
-## 📝 License
-
-This project is licensed under the MIT License.
-
-## 🤝 Contributing
-
-1. Fork the repository
-2. Create your feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add some amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
-
-## 📞 Contact
-
-For questions about the competition, please visit our contact page or reach out through the provided contact information.
+The following are preserved:
+- ✅ React frontend application
+- ✅ API client with fetch requests
+- ✅ UI components and styling
+- ✅ Client-side routing
+- ✅ Static asset serving
