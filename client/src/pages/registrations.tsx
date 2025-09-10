@@ -523,35 +523,50 @@ export default function NewRegistrationsPage() {
         )}
 
         <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-          <TabsList className="grid w-full grid-cols-3">
-            <TabsTrigger value="school" className="flex items-center gap-2">
-              <School className="h-4 w-4" />
-              School Registration
+          <TabsList className="grid w-full grid-cols-1 sm:grid-cols-3 gap-2 sm:gap-0 h-auto sm:h-12 p-1 bg-gray-100 rounded-lg">
+            <TabsTrigger 
+              value="school" 
+              className="flex flex-col sm:flex-row items-center justify-center gap-1 sm:gap-2 py-3 sm:py-2 px-4 text-xs sm:text-sm font-medium transition-all duration-200 data-[state=active]:bg-white data-[state=active]:shadow-sm data-[state=active]:text-blue-600 hover:bg-gray-50"
+            >
+              <School className="h-4 w-4 sm:h-5 sm:w-5" />
+              <span className="text-center">School Registration</span>
+              <Badge className="ml-1 bg-blue-100 text-blue-800 text-xs">Step 1</Badge>
             </TabsTrigger>
-            <TabsTrigger value="mentor" className="flex items-center gap-2">
-              <Users className="h-4 w-4" />
-              Mentor Registration
+            <TabsTrigger 
+              value="mentor" 
+              className="flex flex-col sm:flex-row items-center justify-center gap-1 sm:gap-2 py-3 sm:py-2 px-4 text-xs sm:text-sm font-medium transition-all duration-200 data-[state=active]:bg-white data-[state=active]:shadow-sm data-[state=active]:text-green-600 hover:bg-gray-50"
+            >
+              <Users className="h-4 w-4 sm:h-5 sm:w-5" />
+              <span className="text-center">Mentor Registration</span>
+              <Badge className="ml-1 bg-green-100 text-green-800 text-xs">Step 2</Badge>
             </TabsTrigger>
-            <TabsTrigger value="candidate" className="flex items-center gap-2">
-              <GraduationCap className="h-4 w-4" />
-              Candidate Registration
+            <TabsTrigger 
+              value="candidate" 
+              className="flex flex-col sm:flex-row items-center justify-center gap-1 sm:gap-2 py-3 sm:py-2 px-4 text-xs sm:text-sm font-medium transition-all duration-200 data-[state=active]:bg-white data-[state=active]:shadow-sm data-[state=active]:text-purple-600 hover:bg-gray-50"
+            >
+              <GraduationCap className="h-4 w-4 sm:h-5 sm:w-5" />
+              <span className="text-center">Candidate Registration</span>
+              <Badge className="ml-1 bg-purple-100 text-purple-800 text-xs">Step 3</Badge>
             </TabsTrigger>
           </TabsList>
 
           {/* School Registration Form */}
-          <TabsContent value="school" className="space-y-6">
-            <Card>
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <School className="h-5 w-5" />
-                  School Registration
+          <TabsContent value="school" className="space-y-6 mt-6">
+            <Card className="shadow-lg border-0">
+              <CardHeader className="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-t-lg">
+                <CardTitle className="flex flex-col sm:flex-row sm:items-center gap-2">
+                  <span className="flex items-center gap-2 text-lg sm:text-xl">
+                    <School className="h-5 w-5 text-blue-600" />
+                    School Registration
+                  </span>
+                  <Badge className="bg-blue-100 text-blue-800 w-fit">Step 1</Badge>
                 </CardTitle>
-                <CardDescription>
+                <CardDescription className="text-sm sm:text-base">
                   Register your school to get a unique school code for mentor registrations.
                 </CardDescription>
               </CardHeader>
-              <CardContent>
-                <form onSubmit={handleSchoolRegistration} className="space-y-6">
+              <CardContent className="p-4 sm:p-6">
+                <form onSubmit={handleSchoolRegistration} className="space-y-4 sm:space-y-6">
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
                       <Label htmlFor="schoolName">School Name *</Label>
@@ -726,19 +741,22 @@ export default function NewRegistrationsPage() {
           </TabsContent>
 
           {/* Mentor Registration Form */}
-          <TabsContent value="mentor" className="space-y-6">
-            <Card>
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <Users className="h-5 w-5" />
-                  Mentor Registration
+          <TabsContent value="mentor" className="space-y-6 mt-6">
+            <Card className="shadow-lg border-0">
+              <CardHeader className="bg-gradient-to-r from-green-50 to-emerald-50 rounded-t-lg">
+                <CardTitle className="flex flex-col sm:flex-row sm:items-center gap-2">
+                  <span className="flex items-center gap-2 text-lg sm:text-xl">
+                    <Users className="h-5 w-5 text-green-600" />
+                    Mentor Registration
+                  </span>
+                  <Badge className="bg-green-100 text-green-800 w-fit">Step 2</Badge>
                 </CardTitle>
-                <CardDescription>
+                <CardDescription className="text-sm sm:text-base">
                   Register as a mentor using your school code to guide candidates.
                 </CardDescription>
               </CardHeader>
-              <CardContent>
-                <form onSubmit={handleMentorRegistration} className="space-y-6">
+              <CardContent className="p-4 sm:p-6">
+                <form onSubmit={handleMentorRegistration} className="space-y-4 sm:space-y-6">
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
                       <Label htmlFor="schoolCode">School Code *</Label>
@@ -848,19 +866,22 @@ export default function NewRegistrationsPage() {
           </TabsContent>
 
           {/* Candidate Registration Form */}
-          <TabsContent value="candidate" className="space-y-6">
-            <Card>
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <GraduationCap className="h-5 w-5" />
-                  Candidate Registration
+          <TabsContent value="candidate" className="space-y-6 mt-6">
+            <Card className="shadow-lg border-0">
+              <CardHeader className="bg-gradient-to-r from-purple-50 to-blue-50 rounded-t-lg">
+                <CardTitle className="flex flex-col sm:flex-row sm:items-center gap-2">
+                  <span className="flex items-center gap-2 text-lg sm:text-xl">
+                    <GraduationCap className="h-5 w-5 text-purple-600" />
+                    Candidate Registration
+                  </span>
+                  <Badge className="bg-purple-100 text-purple-800 w-fit">Step 3</Badge>
                 </CardTitle>
-                <CardDescription>
+                <CardDescription className="text-sm sm:text-base">
                   Register as a candidate using your mentor code to participate in KBE 2025.
                 </CardDescription>
               </CardHeader>
-              <CardContent>
-                <form onSubmit={handleCandidateRegistration} className="space-y-6">
+              <CardContent className="p-4 sm:p-6">
+                <form onSubmit={handleCandidateRegistration} className="space-y-4 sm:space-y-6">
                   <div>
                     <Label htmlFor="candidateMentorCode">Mentor Code *</Label>
                     <Input
