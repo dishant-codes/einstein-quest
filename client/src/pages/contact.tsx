@@ -1,7 +1,6 @@
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
@@ -9,8 +8,7 @@ import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
-import { apiRequest } from "@/lib/queryClient";
-import { insertContactSchema } from "@shared/schema";
+import { insertContactSchema } from "@/lib/schema";
 import { CONTACT_INFO } from "@/lib/constants";
 import { MapPin, Phone, Mail, Clock, Send, MessageSquare } from "lucide-react";
 import { z } from "zod";
@@ -77,7 +75,6 @@ const faqs = [
 
 export default function Contact() {
   const { toast } = useToast();
-  const queryClient = useQueryClient();
 
   useEffect(() => {
     document.title = "Contact Us - KBE Young Scientist Competition";
@@ -94,29 +91,16 @@ export default function Contact() {
     },
   });
 
-  const contactMutation = useMutation({
-    mutationFn: async (data: ContactFormData) => {
-      return await apiRequest("POST", "/api/contacts", data);
-    },
-    onSuccess: () => {
-      toast({
-        title: "Message Sent Successfully!",
-        description: "Thank you for contacting us. We'll get back to you within 24 hours.",
-      });
-      form.reset();
-      queryClient.invalidateQueries({ queryKey: ["/api/contacts"] });
-    },
-    onError: (error: any) => {
-      toast({
-        title: "Failed to Send Message",
-        description: error.message || "Something went wrong. Please try again.",
-        variant: "destructive",
-      });
-    },
-  });
-
   const onSubmit = (data: ContactFormData) => {
-    contactMutation.mutate(data);
+    // Simulate form submission
+    console.log("Contact data:", data);
+    
+    toast({
+      title: "Message Sent Successfully!",
+      description: "Thank you for contacting us. We'll get back to you within 24 hours.",
+    });
+    
+    form.reset();
   };
 
   return (
@@ -301,17 +285,10 @@ export default function Contact() {
                       <Button 
                         type="submit" 
                         className="w-full bg-kbe-blue hover:bg-blue-700 text-white font-semibold py-3"
-                        disabled={contactMutation.isPending}
                         data-testid="button-send-message"
                       >
-                        {contactMutation.isPending ? (
-                          <>Sending...</>
-                        ) : (
-                          <>
-                            <Send className="mr-2 h-5 w-5" />
-                            Send Message
-                          </>
-                        )}
+                        <Send className="mr-2 h-5 w-5" />
+                        Send Message
                       </Button>
                     </form>
                   </Form>

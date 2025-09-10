@@ -52,7 +52,7 @@ export default function ExamPreview() {
                 <div className="text-2xl font-bold text-kbe-orange mb-4" data-testid={`text-${grade.id}-price`}>
                   ₹{grade.price}/-
                 </div>
-                <Link href="/exams">
+                <Link href="/einstein-quest/online-registrations">
                   <Button 
                     className={`w-full bg-${grade.color} hover:opacity-90 text-white`}
                     data-testid={`button-register-${grade.id}`}

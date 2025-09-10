@@ -10,7 +10,7 @@ const navigation = [
   { name: "Home", href: "/einstein-quest", icon: Atom },
   { name: "About Us", href: "/einstein-quest/about", icon: Users },
   { name: "Exams", href: "/einstein-quest/exams", icon: BookOpen },
-  { name: "Gallery", href: "/einstein-quest/gallery", icon: Award },
+  { name: "Gallery", href: "/einstein-quest/gallery", icon: Globe },
 ];
 
 export default function Navbar() {
@@ -89,7 +89,7 @@ export default function Navbar() {
                 <span className="font-medium">Registration Open</span>
               </div>
             </div>
-            <Link href="/einstein-quest/exams">
+            <Link href="/einstein-quest/online-registrations">
               <Button 
                 className="bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-600 hover:to-red-600 text-white font-semibold px-6 py-2.5 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105"
                 data-testid="button-register-now"
@@ -167,7 +167,7 @@ export default function Navbar() {
                     <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse mr-2"></div>
                     <span className="font-medium">Registration Open</span>
                   </div>
-                  <Link href="/einstein-quest/exams" onClick={() => setIsOpen(false)}>
+                  <Link href="/einstein-quest/online-registrations" onClick={() => setIsOpen(false)}>
                     <Button 
                       className="bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-600 hover:to-red-600 text-white font-semibold w-full py-3 rounded-full shadow-lg hover:shadow-xl transition-all duration-300"
                       data-testid="mobile-button-register-now"
