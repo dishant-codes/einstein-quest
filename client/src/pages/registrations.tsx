@@ -178,10 +178,35 @@ export default function NewRegistrationsPage() {
 
       const result = await apiClient.registerSchool(schoolForm);
 
+      // Extract the actual school code from the server response
+      const actualSchoolCode = result.schoolCode || result.data?.schoolCode || result.code;
+      
       setRegistrationStatus({
         type: 'success',
-        message: `School registered successfully! Your school code is: ${result.schoolCode || 'SCH' + Date.now()}`,
-        code: result.schoolCode || 'SCH' + Date.now()
+        message: `School registered successfully! Your school code is: ${actualSchoolCode}`,
+        code: actualSchoolCode
+      });
+
+      // Clear the form after successful registration
+      setSchoolForm({
+        schoolName: "",
+        address: {
+          area: "",
+          locality: "",
+          street: "",
+          village: "",
+          town: "",
+          city: "",
+          state: "",
+          pin: ""
+        },
+        udiseCode: "",
+        contact: "",
+        principal: {
+          name: "",
+          contact: ""
+        },
+        schoolType: ""
       });
 
       toast({
@@ -217,10 +242,25 @@ export default function NewRegistrationsPage() {
 
       const result = await apiClient.registerMentor(mentorForm);
 
+      // Extract the actual mentor code from the server response
+      const actualMentorCode = result.mentorCode || result.data?.mentorCode || result.code;
+
       setRegistrationStatus({
         type: 'success',
-        message: `Mentor registered successfully! Your mentor code is: ${result.mentorCode || 'MEN' + Date.now()}`,
-        code: result.mentorCode || 'MEN' + Date.now()
+        message: `Mentor registered successfully! Your mentor code is: ${actualMentorCode}`,
+        code: actualMentorCode
+      });
+
+      // Clear the form after successful registration
+      setMentorForm({
+        schoolCode: "",
+        name: "",
+        address: "",
+        contact: "",
+        subjectTeaching: "",
+        workExperience: 0,
+        activitiesParticipated: "",
+        opinionOnISRO: ""
       });
 
       toast({
@@ -479,10 +519,10 @@ export default function NewRegistrationsPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50 p-4">
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50 pt-16 sm:pt-20 md:pt-24 pb-8 px-4">
       <div className="max-w-4xl mx-auto">
-        <div className="text-center mb-8">
-          <h1 className="text-4xl font-bold text-gray-900 mb-4">
+        <div className="text-center mb-6 sm:mb-8">
+          <h1 className="text-3xl mt-5 sm:text-4xl font-bold text-gray-900 mb-4">
             KBE 2025 - Registration Portal
           </h1>
           <p className="text-lg text-gray-600 mb-2">
@@ -530,7 +570,7 @@ export default function NewRegistrationsPage() {
             >
               <School className="h-4 w-4 sm:h-5 sm:w-5" />
               <span className="text-center">School Registration</span>
-              <Badge className="ml-1 bg-blue-100 text-blue-800 text-xs">Step 1</Badge>
+              {/* <Badge className="ml-1 bg-blue-100 text-blue-800 text-xs">Step 1</Badge> */}
             </TabsTrigger>
             <TabsTrigger 
               value="mentor" 
@@ -538,7 +578,7 @@ export default function NewRegistrationsPage() {
             >
               <Users className="h-4 w-4 sm:h-5 sm:w-5" />
               <span className="text-center">Mentor Registration</span>
-              <Badge className="ml-1 bg-green-100 text-green-800 text-xs">Step 2</Badge>
+              {/* <Badge className="ml-1 bg-green-100 text-green-800 text-xs">Step 2</Badge> */}
             </TabsTrigger>
             <TabsTrigger 
               value="candidate" 
@@ -546,7 +586,7 @@ export default function NewRegistrationsPage() {
             >
               <GraduationCap className="h-4 w-4 sm:h-5 sm:w-5" />
               <span className="text-center">Candidate Registration</span>
-              <Badge className="ml-1 bg-purple-100 text-purple-800 text-xs">Step 3</Badge>
+              {/* <Badge className="ml-1 bg-purple-100 text-purple-800 text-xs">Step 3</Badge> */}
             </TabsTrigger>
           </TabsList>
 
@@ -559,7 +599,7 @@ export default function NewRegistrationsPage() {
                     <School className="h-5 w-5 text-blue-600" />
                     School Registration
                   </span>
-                  <Badge className="bg-blue-100 text-blue-800 w-fit">Step 1</Badge>
+                  {/* <Badge className="bg-blue-100 text-blue-800 w-fit">Step 1</Badge> */}
                 </CardTitle>
                 <CardDescription className="text-sm sm:text-base">
                   Register your school to get a unique school code for mentor registrations.
@@ -749,7 +789,7 @@ export default function NewRegistrationsPage() {
                     <Users className="h-5 w-5 text-green-600" />
                     Mentor Registration
                   </span>
-                  <Badge className="bg-green-100 text-green-800 w-fit">Step 2</Badge>
+                  {/* <Badge className="bg-green-100 text-green-800 w-fit">Step 2</Badge> */}
                 </CardTitle>
                 <CardDescription className="text-sm sm:text-base">
                   Register as a mentor using your school code to guide candidates.
@@ -874,7 +914,7 @@ export default function NewRegistrationsPage() {
                     <GraduationCap className="h-5 w-5 text-purple-600" />
                     Candidate Registration
                   </span>
-                  <Badge className="bg-purple-100 text-purple-800 w-fit">Step 3</Badge>
+                  {/* <Badge className="bg-purple-100 text-purple-800 w-fit">Step 3</Badge> */}
                 </CardTitle>
                 <CardDescription className="text-sm sm:text-base">
                   Register as a candidate using your mentor code to participate in KBE 2025.
