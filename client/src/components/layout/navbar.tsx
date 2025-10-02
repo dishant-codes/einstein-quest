@@ -10,7 +10,6 @@ const navigation = [
   { name: "Home", href: "/einstein-quest", icon: Atom },
   { name: "About Us", href: "/einstein-quest/about", icon: Users },
   { name: "Exams", href: "/einstein-quest/exams", icon: BookOpen },
-  { name: "Training", href: "/einstein-quest/training", icon: BookOpen },
   { name: "Downloads", href: "/einstein-quest/downloads", icon: Download },
   { name: "Gallery", href: "/einstein-quest/gallery", icon: Globe },
 ];
