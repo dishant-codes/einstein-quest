@@ -71,6 +71,10 @@ export default function NewRegistrationsPage() {
       region: "",
       motherTongue: ""
     },
+    contactDetails: {
+      phoneNumber: "",
+      email: ""
+    },
     orphanDetails: {
       isOrphan: false
     },
@@ -94,7 +98,8 @@ export default function NewRegistrationsPage() {
     documents: {
       photo: null as File | null,
       signature: null as File | null
-    }
+    },
+    feesPaid: false
   });
 
   // Validation functions
@@ -124,13 +129,23 @@ export default function NewRegistrationsPage() {
 
   // Candidate form handlers
   const handleCandidateInputChange = (section: string, field: string, value: any) => {
-    setCandidateForm(prev => ({
-      ...prev,
-      [section]: {
-        ...prev[section as keyof typeof prev] as any,
-        [field]: value
+    setCandidateForm(prev => {
+      if (section === 'root') {
+        // Handle root-level fields
+        return {
+          ...prev,
+          [field]: value
+        };
       }
-    }));
+      // Handle nested fields
+      return {
+        ...prev,
+        [section]: {
+          ...prev[section as keyof typeof prev] as any,
+          [field]: value
+        }
+      };
+    });
   };
 
   const handleFileUpload = (field: 'photo' | 'signature', file: File) => {
@@ -324,6 +339,18 @@ export default function NewRegistrationsPage() {
         validationErrors.push("Mother tongue is required");
       }
 
+      // Contact validation
+      if (!candidateForm.contactDetails.phoneNumber.trim()) {
+        validationErrors.push("Phone number is required");
+      } else if (!validateContact(candidateForm.contactDetails.phoneNumber)) {
+        validationErrors.push("Phone number must be 10 digits");
+      }
+      if (candidateForm.contactDetails.email && 
+          candidateForm.contactDetails.email.trim() && 
+          !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(candidateForm.contactDetails.email)) {
+        validationErrors.push("Please enter a valid email address");
+      }
+
       // Address validation
       if (!candidateForm.permanentAddress.addressLines.trim()) {
         validationErrors.push("Address is required");
@@ -416,6 +443,10 @@ export default function NewRegistrationsPage() {
       formData.append('personalDetails[region]', candidateForm.personalDetails.region);
       formData.append('personalDetails[motherTongue]', candidateForm.personalDetails.motherTongue);
       
+      // Add contact details
+      formData.append('contactDetails[phoneNumber]', candidateForm.contactDetails.phoneNumber);
+      formData.append('contactDetails[email]', candidateForm.contactDetails.email);
+      
       // Add orphan details
       formData.append('orphanDetails[isOrphan]', candidateForm.orphanDetails.isOrphan.toString());
       
@@ -435,6 +466,9 @@ export default function NewRegistrationsPage() {
       formData.append('educationalDetails[kbeCategory]', candidateForm.educationalDetails.kbeCategory);
       formData.append('educationalDetails[kbeStageParticipated]', candidateForm.educationalDetails.kbeStageParticipated);
       formData.append('educationalDetails[fees]', candidateForm.educationalDetails.fees.toString());
+      
+      // Add fees paid status
+      formData.append('feesPaid', candidateForm.feesPaid.toString());
       
       // Add files (with type guards)
       if (candidateForm.documents.photo) {
@@ -471,6 +505,10 @@ export default function NewRegistrationsPage() {
           region: "",
           motherTongue: ""
         },
+        contactDetails: {
+          phoneNumber: "",
+          email: ""
+        },
         orphanDetails: {
           isOrphan: false
         },
@@ -494,7 +532,8 @@ export default function NewRegistrationsPage() {
         documents: {
           photo: null as File | null,
           signature: null as File | null
-        }
+        },
+        feesPaid: false
       });
 
       toast({
@@ -1020,6 +1059,34 @@ export default function NewRegistrationsPage() {
                   </div>
 
                   <div className="space-y-4">
+                    <h3 className="text-lg font-semibold">Contact Details</h3>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                      <div>
+                        <Label htmlFor="phoneNumber">Phone Number *</Label>
+                        <Input
+                          id="phoneNumber"
+                          type="tel"
+                          maxLength={10}
+                          value={candidateForm.contactDetails.phoneNumber}
+                          onChange={(e) => handleCandidateInputChange('contactDetails', 'phoneNumber', e.target.value)}
+                          placeholder="Enter 10-digit mobile number"
+                          required
+                        />
+                      </div>
+                      <div>
+                        <Label htmlFor="email">Email (Optional)</Label>
+                        <Input
+                          id="email"
+                          type="email"
+                          value={candidateForm.contactDetails.email}
+                          onChange={(e) => handleCandidateInputChange('contactDetails', 'email', e.target.value)}
+                          placeholder="Enter email address"
+                        />
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="space-y-4">
                     <h3 className="text-lg font-semibold">Orphan Details</h3>
                     <div className="flex items-center space-x-2">
                       <Checkbox
@@ -1185,6 +1252,18 @@ export default function NewRegistrationsPage() {
                           required
                         />
                       </div>
+                    </div>
+                    
+                    {/* Fees Payment Status */}
+                    <div className="flex items-center space-x-2 pt-4">
+                      <Checkbox
+                        id="feesPaid"
+                        checked={candidateForm.feesPaid}
+                        onCheckedChange={(checked) => handleCandidateInputChange('root', 'feesPaid', checked)}
+                      />
+                      <Label htmlFor="feesPaid" className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
+                        Fees have been paid
+                      </Label>
                     </div>
                   </div>
 

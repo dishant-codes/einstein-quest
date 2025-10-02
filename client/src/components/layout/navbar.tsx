@@ -3,13 +3,15 @@ import { Link, useLocation } from "wouter";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { Badge } from "@/components/ui/badge";
-import { Menu, X, Globe, Atom, Award, Users, BookOpen } from "lucide-react";
+import { Menu, X, Globe, Atom, Award, Users, BookOpen, Download } from "lucide-react";
 import kbeLogo from "@assets/KBE logo.png";
 
 const navigation = [
   { name: "Home", href: "/einstein-quest", icon: Atom },
   { name: "About Us", href: "/einstein-quest/about", icon: Users },
   { name: "Exams", href: "/einstein-quest/exams", icon: BookOpen },
+  { name: "Training", href: "/einstein-quest/training", icon: BookOpen },
+  { name: "Downloads", href: "/einstein-quest/downloads", icon: Download },
   { name: "Gallery", href: "/einstein-quest/gallery", icon: Globe },
 ];
 
@@ -21,7 +23,7 @@ export default function Navbar() {
     <nav className="bg-white/95 backdrop-blur-md shadow-xl fixed w-full top-0 z-50 border-b border-gray-200/30" data-testid="navbar">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-20">
-          <Link href="/" className="flex items-center group transition-all duration-300 hover:scale-105" data-testid="link-home-logo">
+          <Link href="/einstein-quest" className="flex items-center group transition-all duration-300 hover:scale-105" data-testid="link-home-logo">
             <div className="flex items-center">
               {/* Logo Section */}
               <div className="relative">

@@ -229,7 +229,7 @@ export default function HeroSlider() {
 
                     {/* CTA Buttons */}
                     <div className="flex flex-col sm:flex-row gap-2 sm:gap-4 pt-1 sm:pt-4 justify-center lg:justify-start">
-                      <Link href="/exams">
+                      <Link href="/einstein-quest/exams">
                         <Button 
                           size="lg" 
                           className={`bg-gradient-to-r ${slide.color} hover:scale-105 text-white font-semibold text-xs sm:text-base lg:text-lg px-4 py-2 sm:px-8 sm:py-4 rounded-full shadow-xl transition-all duration-300 w-full sm:w-auto`}
@@ -238,7 +238,7 @@ export default function HeroSlider() {
                           {slide.cta}
                         </Button>
                       </Link>
-                      <Link href="/gallery">
+                      <Link href="/einstein-quest/gallery">
                         <Button 
                           size="lg" 
                           variant="outline" 

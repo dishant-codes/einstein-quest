@@ -4,8 +4,8 @@
 // Demo mode flag - set to false for real API calls
 const FORCE_DEMO_MODE = false;
 
-// Remove the '/api' suffix as it's added by the individual API methods
-const API_BASE_URL = 'https://einstein-quest-server.onrender.com';
+// API Base URL - use environment variable if available, fallback to localhost for development
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:5001';
 
 // Generic API client class
 class ApiClient {
@@ -178,6 +178,23 @@ class ApiClient {
   async getStatistics() {
     return this.request('/api/statistics');
   }
+
+  // Admin API methods
+  async adminLogin(credentials: { username: string; password: string }) {
+    return this.request('/api/admin/login', {
+      method: 'POST',
+      body: JSON.stringify(credentials),
+    });
+  }
+
+  async getAdminDashboard(token: string) {
+    return this.request('/api/admin/dashboard', {
+      method: 'GET',
+      headers: {
+        'Authorization': `Bearer ${token}`,
+      },
+    });
+  }
   
   // Demo mode handler to generate mock responses
   private async handleDemoMode(endpoint: string, options: RequestInit = {}): Promise<any> {
@@ -343,6 +360,9 @@ export const {
   registerCandidate,
   registerCandidateWithFiles,
   getCandidates,
+  // Admin methods
+  adminLogin,
+  getAdminDashboard,
   // Utility methods
   healthCheck,
   getStatistics,

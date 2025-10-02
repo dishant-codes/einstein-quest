@@ -36,7 +36,13 @@ export default defineConfig({
   server: {
     port: 5000,
     host: true,
-    // Removed proxy - API calls will go directly to production server
+    proxy: {
+      '/api': {
+        target: 'http://localhost:5001',
+        changeOrigin: true,
+        secure: false
+      }
+    }
   },
   preview: {
     port: 5000,

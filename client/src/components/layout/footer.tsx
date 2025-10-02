@@ -35,11 +35,13 @@ export default function Footer() {
           <div>
             <h4 className="text-lg font-semibold mb-4">Quick Links</h4>
             <ul className="space-y-2">
-              <li><Link href="/" className="text-gray-400 hover:text-white transition-colors" data-testid="footer-link-home">Home</Link></li>
-              <li><Link href="/about" className="text-gray-400 hover:text-white transition-colors" data-testid="footer-link-about">About Us</Link></li>
-              <li><Link href="/exams" className="text-gray-400 hover:text-white transition-colors" data-testid="footer-link-exams">Exams</Link></li>
-              <li><Link href="/training" className="text-gray-400 hover:text-white transition-colors" data-testid="footer-link-training">Training</Link></li>
-              <li><Link href="/gallery" className="text-gray-400 hover:text-white transition-colors" data-testid="footer-link-gallery">Gallery</Link></li>
+              <li><Link href="/einstein-quest" className="text-gray-400 hover:text-white transition-colors" data-testid="footer-link-home">Home</Link></li>
+              <li><Link href="/einstein-quest/about" className="text-gray-400 hover:text-white transition-colors" data-testid="footer-link-about">About Us</Link></li>
+              <li><Link href="/einstein-quest/exams" className="text-gray-400 hover:text-white transition-colors" data-testid="footer-link-exams">Exams</Link></li>
+              <li><Link href="/einstein-quest/training" className="text-gray-400 hover:text-white transition-colors" data-testid="footer-link-training">Training</Link></li>
+              <li><Link href="/einstein-quest/gallery" className="text-gray-400 hover:text-white transition-colors" data-testid="footer-link-gallery">Gallery</Link></li>
+              <li><Link href="/einstein-quest/contact" className="text-gray-400 hover:text-white transition-colors" data-testid="footer-link-contact">Contact</Link></li>
+              <li><Link href="/einstein-quest/downloads" className="text-gray-400 hover:text-white transition-colors" data-testid="footer-link-downloads">Downloads</Link></li>
             </ul>
           </div>
           

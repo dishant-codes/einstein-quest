@@ -149,7 +149,7 @@ export default function HeroSlider() {
             </div>
             
             <div className="flex flex-col sm:flex-row gap-4">
-              <Link href="/exams">
+              <Link href="/einstein-quest/exams">
                 <Button 
                   size="lg" 
                   className="bg-white text-slate-800 hover:bg-gray-100 font-semibold text-lg transform hover:scale-105 transition-all shadow-lg"

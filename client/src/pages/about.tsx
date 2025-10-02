@@ -330,7 +330,7 @@ export default function About() {
           
           <div className="flex flex-col sm:flex-row gap-6 justify-center">
             <a 
-              href="/exams"
+              href="/einstein-quest/exams"
               className="bg-white text-orange-600 hover:bg-gray-100 px-10 py-4 rounded-full font-bold text-xl transition-all duration-300 transform hover:scale-105 shadow-xl inline-block"
               data-testid="button-cta-register"
             >
@@ -338,7 +338,7 @@ export default function About() {
               Register for KBE 2025
             </a>
             <a 
-              href="/gallery"
+              href="/einstein-quest/gallery"
               className="border-2 border-white text-white hover:bg-white hover:text-orange-600 px-10 py-4 rounded-full font-bold text-xl transition-all duration-300 transform hover:scale-105 inline-block"
               data-testid="button-cta-gallery"
             >
