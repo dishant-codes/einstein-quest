@@ -4,8 +4,8 @@
 // Demo mode flag - set to false for real API calls
 const FORCE_DEMO_MODE = false;
 
-// API Base URL - use environment variable if available, fallback to localhost for development
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:5001';
+// API Base URL - use environment variable if available, fallback to live server for production
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'https://einstein-quest-server.onrender.com';
 
 // Generic API client class
 class ApiClient {

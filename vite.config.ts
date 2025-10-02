@@ -2,7 +2,13 @@ import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 import path from "path";
 
-export default defineConfig({
+export default defineConfig(({ mode }) => {
+  const isDevelopment = mode === 'development';
+  const apiTarget = isDevelopment 
+    ? 'http://localhost:5001' 
+    : 'https://einstein-quest-server.onrender.com';
+
+  return {
   base: "/",
   plugins: [
     react()
@@ -38,9 +44,9 @@ export default defineConfig({
     host: true,
     proxy: {
       '/api': {
-        target: 'http://localhost:5001',
+        target: apiTarget,
         changeOrigin: true,
-        secure: false
+        secure: !isDevelopment
       }
     }
   },
@@ -48,4 +54,5 @@ export default defineConfig({
     port: 5000,
     host: true
   }
+  };
 });

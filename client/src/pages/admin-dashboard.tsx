@@ -415,7 +415,7 @@ function SMSManager() {
             })
           });
         } else {
-          response = await fetch(`http://localhost:5001/api/sms/send-template`, {
+          response = await fetch(`/api/sms/send-template`, {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',

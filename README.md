@@ -28,7 +28,11 @@ The application includes an API client (`client/src/lib/api-client.ts`) that mak
 Set your external API URL in the environment variables:
 
 ```bash
-VITE_API_URL=https://your-external-api.com/api
+# Development
+VITE_API_BASE_URL=http://localhost:5001
+
+# Production
+VITE_API_BASE_URL=https://einstein-quest-server.onrender.com
 ```
 
 ### Demo Mode
