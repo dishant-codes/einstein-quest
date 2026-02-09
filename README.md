@@ -2,10 +2,6 @@
 
 This is a static frontend application for the Einstein Quest registration system.
 
-## Architecture
-
-This application is now configured as a **client-only** application that makes API calls to external services. All server-side code and MongoDB connections have been removed.
-
 ## Structure
 
 ```
@@ -34,10 +30,6 @@ VITE_API_BASE_URL=http://localhost:5001
 # Production
 VITE_API_BASE_URL=https://einstein-quest-server.onrender.com
 ```
-
-### Demo Mode
-
-When no external API is configured, the application runs in demo mode with mock responses.
 
 ## Development
 
